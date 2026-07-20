@@ -1,6 +1,4 @@
 "use client"
-
-
 import { Heart, Grid, Menu, ShoppingCart, CirclePlus, X } from "lucide-react";
 import { useState } from "react";
 import useCartStore from "../../../stores/useCartStore";

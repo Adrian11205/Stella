@@ -13,7 +13,17 @@ const nextConfig: NextConfig = {
         hostname:"static.tildacdn.net"
       }
     ]
-  }
-};
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'https://back-pet-project.onrender.com/:path*',
+      },
+    ]
+  },
+  
+}
+
 
 export default nextConfig;

@@ -3,6 +3,7 @@
 import Card from "@/components/pages-components/products/Card";
 import Filter from "@/components/pages-components/products/Filter";
 
+export const dynamic = "force-dynamic"
 
 export default function Products() {
   return (
