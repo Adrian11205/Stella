@@ -10,7 +10,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from '../../app/ui/dialog'
+} from '../../components/ui/dialog'
 
 function SignOutAccount() {
     

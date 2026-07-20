@@ -1,6 +1,6 @@
-import { Dialog, DialogContent } from "../../app/ui/dialog";
+import { Dialog, DialogContent } from "../../components/ui/dialog";
 import { useState } from "react";
-import { register } from "../../app/api/requests";
+import { register } from "../..//api/requests";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 

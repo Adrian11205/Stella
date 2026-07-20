@@ -12,8 +12,8 @@ import {
 import { FaUserCircle } from "react-icons/fa";
 import SignOutAccount from "./SignOutAccount"
 
-import { getMyself } from "../../app/api/requests"
-import type { UserResponse } from "../../app/api/types";
+import { getMyself } from "../../api/requests"
+import type { UserResponse } from "../../api/types";
 import { useEffect, useState } from "react";
 
 import {
@@ -27,7 +27,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuLabel,
-} from "./../../app/ui/dropdown-menu";
+} from "./../../components/ui/dropdown-menu";
 
 function Account() {
   

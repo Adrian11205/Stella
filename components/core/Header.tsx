@@ -17,8 +17,8 @@ import RegisterLog from "../dialogs/RegisterLogin";
 import MobileAppMenu from "./MobileAppMenu";
 
 import Languages from "./Languages";
-import useCartStore from "../../app/stores/useCartStore";
-import useFavoriteStore from "../../app/stores/useFavoriteStore";
+import useCartStore from "../../stores/useCartStore";
+import useFavoriteStore from "../../stores/useFavoriteStore";
 import SwitchTheme from "./SwitchTheme"
 
 function Header() {

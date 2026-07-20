@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import { Dialog, DialogContent, DialogTrigger } from "../../app/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "../../components/ui/dialog";
 import Account from './Account'
 
 

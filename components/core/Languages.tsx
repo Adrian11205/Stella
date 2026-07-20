@@ -4,7 +4,7 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "../../app/ui/select";
+} from "../../components/ui/select";
 import ReactCountryFlag from "react-country-flag";
 
 
