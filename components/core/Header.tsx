@@ -1,3 +1,5 @@
+"use client"
+
 import {
   Truck,
   Undo2,
@@ -20,12 +22,10 @@ import useFavoriteStore from "../../app/stores/useFavoriteStore";
 import SwitchTheme from "./SwitchTheme"
 
 function Header() {
- 
-
-
   const [isRegister, setIsRegister] = useState(false);
   const [isLog, setIsLog] = useState(false);
-  const isAuth = localStorage.getItem("accessToken");
+  const isAuth = typeof localStorage !== "undefined" ?
+    localStorage.getItem("accessToken") : false
 
   const { itemsNumber } = useCartStore();
   const { favoriteNumber } = useFavoriteStore();
@@ -92,7 +92,7 @@ function Header() {
             />
           </div>
 
-          <SwitchTheme/>
+          <SwitchTheme />
 
           <Languages />
 

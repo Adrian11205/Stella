@@ -11,8 +11,8 @@ type MobileAppMenuProps = {
 
 export default function MobileAppMenu({ onRegisterClick, onLoginClick }: MobileAppMenuProps) {
     const [dialogOpen, setDialogOpen] = useState(false);
-    const isAuth = localStorage.getItem("accessToken");
-   
+    const isAuth = typeof localStorage !== "undefined" ?
+        localStorage.getItem("accessToken") : false
 
     return (
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
