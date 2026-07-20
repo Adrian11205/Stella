@@ -8,7 +8,7 @@ import {
   Heart,
   Search,
 } from "lucide-react";
-
+import Image from 'next/image'
 import SkipTo from "./ShipTo";
 import Account from "./Account";
 import { useState } from "react";
@@ -71,10 +71,12 @@ function Header() {
             onClick={() => ("/home")}
             className="flex items-center whitespace-nowrap hover:opacity-80 transition cursor-pointer"
           >
-            <img
+            <Image
               src="https://static.tildacdn.net/tild3830-6233-4363-b939-616366386430/ChatGPT_Image_9__202.png"
               alt="Stella"
-              className="h-13 w-auto"
+              width={90}
+              height={180}
+              priority={true}
             />
             <span className="text-3xl font-bold text-[#00B5B5] leading-none">
               Stella
