@@ -1,5 +1,6 @@
+"use client"
 import { FaUserCircle } from "react-icons/fa";
-import { getMyself, updateUserProfile } from "../api/requests";
+import { getMyself, updateUserProfile } from "../../api/requests";
 import { useEffect, useState } from "react";
 
 
@@ -56,11 +57,11 @@ function Profile() {
 
                 <div className="flex flex-col items-center mb-6">
                     <FaUserCircle size={80} />
-                    <h1 className="mt-2 text-lg font-semibold">{t("myProfile")}</h1>
+                    <h1 className="mt-2 text-lg font-semibold">{("myProfile")}</h1>
                 </div>
 
                 <div className="flex flex-col gap-1 mb-4">
-                    <span className="text-sm text-gray-600">{t("firstName")}</span>
+                    <span className="text-sm text-gray-600">{("firstName")}</span>
                     <input
                         type="text"
                         value={form.firstName}
@@ -73,7 +74,7 @@ function Profile() {
                 </div>
 
                 <div className="flex flex-col gap-1 mb-4">
-                    <span className="text-sm text-gray-600">{t("lastName")}</span>
+                    <span className="text-sm text-gray-600">{("lastName")}</span>
                     <input
                         type="text"
                         value={form.lastName}
@@ -86,7 +87,7 @@ function Profile() {
                 </div>
 
                 <div className="flex flex-col gap-1 mb-4">
-                    <span className="text-sm text-gray-600">{t("phoneNumber")}</span>
+                    <span className="text-sm text-gray-600">{("phoneNumber")}</span>
                     <input
                         type="text"
                         value={form.phoneNumber}
@@ -103,7 +104,7 @@ function Profile() {
                         disabled={isSaving}
                         className="w-60 h-11 bg-emerald-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition disabled:opacity-70"
                     >
-                        {isSaving ? t("saving") : isEditing ? t("saveChanges") : t("changeProfile")}
+                        {isSaving ? ("saving") : isEditing ? ("saveChanges") : ("changeProfile")}
                     </button>
                 </div>
             </div>

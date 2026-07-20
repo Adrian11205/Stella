@@ -3,8 +3,8 @@
 
 import { Heart, Grid, Menu, ShoppingCart, CirclePlus, X } from "lucide-react";
 import { useState } from "react";
-import useCartStore from "../../../app/stores/useCartStore";
-import useFavoriteStore from "../../../app/stores/useFavoriteStore";
+import useCartStore from "../../../stores/useCartStore";
+import useFavoriteStore from "../../../stores/useFavoriteStore";
 import AddProducts from "./AddProducts";
 
 export default function Card() {
