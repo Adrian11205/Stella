@@ -1,32 +1,59 @@
 "use client";
-import { Grid, Menu, ShoppingCart, CirclePlus, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Loader, Grid, Menu, ShoppingCart, CirclePlus, X } from "lucide-react";
+import { useEffect, useState  } from "react";
 import AddProducts from "./AddProducts";
 import ProductCard from "./ProductCard";
 import { getProducts } from "@/api/requests";
 import { toast } from "sonner";
-import { Product , OrderEnum } from "@/api/types";
+import { Product, OrderEnum } from "@/api/types";
 
 export default function ProductsList() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const getAllProducts = () => {
     getProducts({
       page: 1,
       take: 25,
-      order:OrderEnum.DESC
+      order: OrderEnum.DESC,
     })
       .then((data) => {
         setProducts(data.data);
       })
-      .catch((err) => toast.error(err.response?.data?.message));
+      .catch((err) => {
+        toast.error(err.response?.data?.message);
+        setError(err?.response?.data?.message);
+      })
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
     getAllProducts();
   }, []);
+
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  if (isLoading) {
+    return (
+      <div className="w-full h-100 flex items-center justify-center">
+        <Loader className="size-12 " />
+      </div>
+    );
+  }
+
+  if (products.length === 0) {
+    return (
+      <div>
+        <span>Nu sunt produse in stoc</span>
+      </div>
+    );
+  }
+
   return (
     <div className="p-6 ">
       <div className="text-xl font-bold mb-4 text-gray-800">
@@ -70,7 +97,7 @@ export default function ProductsList() {
             <button
               className="flex items-center justify-center gap-3 h-15 px-4 bg-blue-300
                rounded-lg hover:bg-blue-400 transition-colors duration-300 "
-              onClick={() => setShowAddProduct((prev) => !prev)}
+              onClick={() => setShowAddProduct(true)}
             >
               <CirclePlus size={30} />
               Add Product
@@ -88,7 +115,12 @@ export default function ProductsList() {
                   >
                     <X size={20} />
                   </button>
-                  <AddProducts />
+                  <AddProducts
+                    refetchProducts={() => {
+                      getAllProducts();
+                      setShowAddProduct(false);
+                    }}
+                  />
                 </div>
               </div>
             )}

@@ -2,7 +2,8 @@ import {Heart} from "lucide-react"
 import {Product} from "@/api/types"
 interface ProductCardProps {
   viewMode:"grid" | "list";
-  product:Product
+  product:Product;
+ 
 }
  
 

@@ -2,7 +2,11 @@ import { ArrowDown } from "lucide-react";
 import { useState } from "react";
 import { createProduct } from "@/api/requests";
 import { toast } from "sonner";
-export default function AddProducts() {
+
+interface AddProductsProps {
+  refetchProducts:() => void
+}
+export default function AddProducts({refetchProducts}:AddProductsProps) {
   const [brand, setBrand] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -21,6 +25,7 @@ export default function AddProducts() {
         setBrand("");
         setTitle("");
         setPrice("");
+        refetchProducts()
       })
       .catch((err) => toast.error(err?.response?.data?.message));
   };
