@@ -109,7 +109,7 @@ function Header() {
             {isAuth ? (
               <>
                 <button
-                  onClick={() => ("/cart")}
+                  // onClick={() => ("/cart")}
                   className="relative flex items-center"
                 >
                   <ShoppingCart color="#81858a" />

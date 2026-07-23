@@ -45,3 +45,26 @@ export type UpdateProfileType = {
   lastName?: string;
   phoneNumber?: string;
 };
+
+ export interface Product {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date | null;
+  name: string;
+  price: number;
+  category: string;
+}
+
+ export interface Meta {
+  page: string;
+  take: string;
+  itemCount: number;
+  pageCount: number;
+  hasPreviousPage: boolean;
+  hasNextPage: boolean;
+}
+export interface ProductsResponse {
+  data:Product[];
+  meta: Meta
+}

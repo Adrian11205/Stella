@@ -6,6 +6,7 @@ import type {
   PaginationDto,
   CreateProductDto,
   UpdateProfileType,
+  ProductsResponse,
 } from "./types";
 
 /*export async function register2(payloud: RegisterDto) {
@@ -45,8 +46,8 @@ export async function refresh() {
 }
 
 export async function getProducts(pagination: PaginationDto) {
-  const response = await api.get(
-    `/products?page=${pagination.page}&take=${pagination.take}&order=${pagination.order}`,
+  const response = await api.get<ProductsResponse>(
+    `/product?page=${pagination.page}&take=${pagination.take}&order=${pagination.order}`,
     //    {params: {
     //   page: pagination.page,
     //   take: pagination.take,
@@ -57,12 +58,12 @@ export async function getProducts(pagination: PaginationDto) {
 }
 
 export async function createProduct(product: CreateProductDto) {
-  const respnse = await api.post("/products", product);
+  const respnse = await api.post("/product", product);
   return respnse.data;
 }
 
 export async function createProductById(productId: string) {
-  const response = await api.get(`/products/${productId}`);
+  const response = await api.get(`/product/${productId}`);
   return response.data;
 }
 
@@ -70,12 +71,12 @@ export async function updateProduct(
   productId: string,
   product: CreateProductDto,
 ) {
-  const response = await api.put(`/products/${productId}`, product);
+  const response = await api.put(`/product/${productId}`, product);
   return response.data;
 }
 
 export async function deleteProduct(productId: string) {
-  const response = await api.delete(`/products/${productId}`);
+  const response = await api.delete(`/product/${productId}`);
   return response.data;
 }
 export async function getMyself() {

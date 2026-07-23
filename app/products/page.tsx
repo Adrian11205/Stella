@@ -1,6 +1,6 @@
 "use client"
 
-import Card from "@/components/pages-components/products/Card";
+import ProductsList from "@/components/pages-components/products/ProductsList";
 import Filter from "@/components/pages-components/products/Filter";
 
 export const dynamic = "force-dynamic"
@@ -12,7 +12,7 @@ export default function Products() {
       
       <Filter />
       <div className="flex-1">
-        <Card />
+        <ProductsList />
       </div>
     
     </div>
