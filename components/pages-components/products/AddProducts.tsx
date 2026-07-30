@@ -4,14 +4,13 @@ import { createProduct } from "@/api/requests";
 import { toast } from "sonner";
 
 interface AddProductsProps {
-  refetchProducts:() => void
+  refetchProducts: () => void;
 }
-export default function AddProducts({refetchProducts}:AddProductsProps) {
+export default function AddProducts({ refetchProducts }: AddProductsProps) {
   const [brand, setBrand] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
 
-  
   const isValid =
     title.trim().length > 2 &&
     brand.trim().length > 2 &&
@@ -25,7 +24,7 @@ export default function AddProducts({refetchProducts}:AddProductsProps) {
         setBrand("");
         setTitle("");
         setPrice("");
-        refetchProducts()
+        refetchProducts();
       })
       .catch((err) => toast.error(err?.response?.data?.message));
   };

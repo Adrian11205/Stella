@@ -1,6 +1,6 @@
 "use client";
 import { Loader, Grid, Menu, ShoppingCart, CirclePlus, X } from "lucide-react";
-import { useEffect, useState  } from "react";
+import { useEffect, useState } from "react";
 import AddProducts from "./AddProducts";
 import ProductCard from "./ProductCard";
 import { getProducts } from "@/api/requests";
