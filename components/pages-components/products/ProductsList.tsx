@@ -49,7 +49,7 @@ export default function ProductsList() {
   if (isLoading) {
     return (
       <div className="w-full h-100 flex items-center justify-center">
-        <Loader className="size-12 " />
+        <Loader className="size-12 animate-spin` " />
       </div>
     );
   }

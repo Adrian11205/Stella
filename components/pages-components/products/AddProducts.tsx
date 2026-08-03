@@ -4,15 +4,18 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Product } from "@/api/types";
 
 interface AddProductsProps {
   refetchProducts: () => void;
   editMode: boolean;
+  product?: Product;
 }
 
 export default function AddProducts({
   refetchProducts,
   editMode = true,
+  product,
 }: AddProductsProps) {
   const schema = z.object({
     brand: z.string().min(2, "Brand must be at least 2 characters"),
@@ -36,12 +39,17 @@ export default function AddProducts({
       .catch((err) => toast.error(err?.response?.data?.message));
   };
 
-  const editProduct = () => {
-    // updateProduct({
-    //   category: data.brand,
-    //   price: data.price,
-    //   name: data.title,
-    // });
+  const editProduct = (data: FormData) => {
+    updateProduct(product?.id || "", {
+      category: data.brand,
+      price: data.price,
+      name: data.title,
+    })
+      .then(() => {
+        toast.success("The product is updated");
+        refetchProducts();
+      })
+      .catch((err) => toast.error(err?.response?.data?.message));
   };
 
   const {
@@ -52,9 +60,14 @@ export default function AddProducts({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onChange",
+    defaultValues: {
+      brand: product?.category || "",
+      price: product?.price,
+      title: product?.name || "",
+    },
   });
   return (
-    <form onSubmit={handleSubmit(addProduct)}>
+    <form onSubmit={handleSubmit(editMode ? editProduct : addProduct)}>
       <div className="w-fit h-fit flex flex-col items-center justify-center gap-4 p-6 rounded-2xl shadow-lg bg-blue-200">
         <span className="text-blue-900 text-xl font-bold flex flex-col justify-center items-center ">
           Please complete the fields below

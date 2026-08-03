@@ -71,7 +71,7 @@ export async function updateProduct(
   productId: string,
   product: CreateProductDto,
 ) {
-  const response = await api.put(`/product/${productId}`, product);
+  const response = await api.patch(`/product/${productId}`, product);
   return response.data;
 }
 
