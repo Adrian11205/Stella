@@ -1,12 +1,24 @@
-import { Heart, ShoppingCart, Trash2, Pencil } from "lucide-react";
+import { Heart, ShoppingCart, Trash2, Pencil, X } from "lucide-react";
 import { Product } from "@/api/types";
 import Image from "next/image";
+import { useState } from "react";
+import AddProducts from "./AddProducts";
+
 interface ProductCardProps {
   viewMode: "grid" | "list";
   product: Product;
+  onDelete: (id: string) => void;
+  getAllProducts: () => void;
 }
 
-export default function ProductCard({ viewMode, product }: ProductCardProps) {
+export default function ProductCard({
+  viewMode,
+  product,
+  onDelete,
+  getAllProducts,
+}: ProductCardProps) {
+  const [showAddProduct, setShowAddProduct] = useState(false);
+
   return (
     <div
       className={
@@ -48,7 +60,12 @@ export default function ProductCard({ viewMode, product }: ProductCardProps) {
           <div className="font-bold text-lg mt-1">{product.price} lei</div>
 
           {/* Butoane */}
-          <div className="grid grid-cols-3 gap-1.5 mt-3">
+          <div
+            onClick={() => {
+              setShowAddProduct(true);
+            }}
+            className="grid grid-cols-3 gap-1.5 mt-3"
+          >
             <button className="flex items-center justify-center gap-1 bg-green-800 hover:bg-green-900 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap">
               <Pencil size={14} />
               <span>Edit</span>
@@ -59,7 +76,10 @@ export default function ProductCard({ viewMode, product }: ProductCardProps) {
               <span>Add</span>
             </button>
 
-            <button className="flex items-center justify-center gap-1 bg-red-500 hover:bg-red-600 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap">
+            <button
+              onClick={() => onDelete(product.id)}
+              className="flex items-center justify-center gap-1 bg-red-500 hover:bg-red-600 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
+            >
               <Trash2 size={14} />
               <span>Delete</span>
             </button>
@@ -102,7 +122,12 @@ export default function ProductCard({ viewMode, product }: ProductCardProps) {
           </button>
 
           {/* Butoane */}
-          <div className="flex items-center gap-1.5 shrink-0">
+          <div
+            onClick={() => {
+              setShowAddProduct(true);
+            }}
+            className="flex items-center gap-1.5 shrink-0"
+          >
             <button className="flex items-center gap-1 bg-green-800 hover:bg-green-900 text-white rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer">
               <Pencil size={14} />
               <span>Edit</span>
@@ -113,12 +138,39 @@ export default function ProductCard({ viewMode, product }: ProductCardProps) {
               <span>Add</span>
             </button>
 
-            <button className="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer">
+            <button
+              onClick={() => onDelete(product.id)}
+              className="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer"
+            >
               <Trash2 size={14} />
+
               <span>Delete</span>
             </button>
           </div>
         </>
+      )}
+
+      {showAddProduct && (
+        <div
+          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+          onClick={() => setShowAddProduct(false)}
+        >
+          <div onClick={(e) => e.stopPropagation()} className="relative">
+            <button
+              onClick={() => setShowAddProduct(false)}
+              className="absolute -top-3 -right-3 bg-white rounded-full p-1 shadow-md hover:bg-gray-100"
+            >
+              <X size={20} />
+            </button>
+            <AddProducts
+              refetchProducts={() => {
+                getAllProducts();
+                setShowAddProduct(false);
+              }}
+              editMode={true}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

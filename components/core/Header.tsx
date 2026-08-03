@@ -112,7 +112,7 @@ function Header() {
                   // onClick={() => ("/cart")}
                   className="relative flex items-center"
                 >
-                  <ShoppingCart color="#81858a" />
+                  {/* <ShoppingCart  /> */}
                   {itemsNumber > 0 && (
                     <div className="absolute -top-2.5 -right-2.5 bg-red-500 rounded-full size-5 text-white flex items-center justify-center">
                       {itemsNumber}

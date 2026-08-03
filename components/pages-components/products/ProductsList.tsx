@@ -3,7 +3,7 @@ import { Loader, Grid, Menu, ShoppingCart, CirclePlus, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import AddProducts from "./AddProducts";
 import ProductCard from "./ProductCard";
-import { getProducts } from "@/api/requests";
+import { getProducts, deleteProduct } from "@/api/requests";
 import { toast } from "sonner";
 import { Product, OrderEnum } from "@/api/types";
 
@@ -30,6 +30,14 @@ export default function ProductsList() {
       .finally(() => setIsLoading(false));
   };
 
+  const onDelete = (id: string) => {
+    deleteProduct(id).then(() => {
+      toast.success("Deleted succesfuly");
+      // getAllProducts()
+      const newProductsList = products.filter((product) => product.id !== id);
+      setProducts(newProductsList);
+    });
+  };
   useEffect(() => {
     getAllProducts();
   }, []);
@@ -120,6 +128,7 @@ export default function ProductsList() {
                       getAllProducts();
                       setShowAddProduct(false);
                     }}
+                    editMode={false}
                   />
                 </div>
               </div>
@@ -136,7 +145,15 @@ export default function ProductsList() {
         }
       >
         {products.map((product) => (
-          <ProductCard key={product.id} viewMode={viewMode} product={product} />
+          <ProductCard
+            key={product.id}
+            viewMode={viewMode}
+            product={product}
+            onDelete={onDelete}
+            getAllProducts={() => {
+              getAllProducts();
+            }}
+          />
         ))}
       </div>
     </div>

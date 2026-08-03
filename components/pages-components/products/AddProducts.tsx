@@ -1,5 +1,5 @@
 import { ArrowDown } from "lucide-react";
-import { createProduct } from "@/api/requests";
+import { createProduct, updateProduct } from "@/api/requests";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -7,12 +7,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 interface AddProductsProps {
   refetchProducts: () => void;
+  editMode: boolean;
 }
-export default function AddProducts({ refetchProducts }: AddProductsProps) {
+
+export default function AddProducts({
+  refetchProducts,
+  editMode = true,
+}: AddProductsProps) {
   const schema = z.object({
     brand: z.string().min(2, "Brand must be at least 2 characters"),
     title: z.string().min(2, "Title must be at least 2 characters"),
-    price: z.number().positive("Price must be greater than 0"),
+    price: z.number().positive("Price must be greater than 0").int(),
   });
 
   type FormData = z.infer<typeof schema>;
@@ -29,6 +34,14 @@ export default function AddProducts({ refetchProducts }: AddProductsProps) {
         refetchProducts();
       })
       .catch((err) => toast.error(err?.response?.data?.message));
+  };
+
+  const editProduct = () => {
+    // updateProduct({
+    //   category: data.brand,
+    //   price: data.price,
+    //   name: data.title,
+    // });
   };
 
   const {
