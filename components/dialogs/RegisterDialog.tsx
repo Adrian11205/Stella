@@ -3,6 +3,7 @@ import { useState } from "react";
 import { register } from "../..//api/requests";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 interface RegisterProps {
   open: boolean;
@@ -24,6 +25,8 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
 
   const [showPassword, setShowPassword] = useState(false);
 
+const {login}= useAuthStore()
+
   function submit() {
     const payload = {
       email,
@@ -36,8 +39,7 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
     register(payload)
       .then((data) => {
         toast.success("Registred with success")
-        localStorage.setItem("accessToken", data.accessToken)
-        localStorage.setItem("refreshToken", data.refreshToken)
+        login(data.accessToken, data.refreshToken)
         setOpen()
       })
       .catch((error) => {

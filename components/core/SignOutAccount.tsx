@@ -11,15 +11,13 @@ import {
     DialogTitle,
     DialogTrigger,
 } from '../../components/ui/dialog'
+import { useAuthStore } from '@/stores/useAuthStore'
 
 function SignOutAccount() {
     
 
-    function logout() {
-        localStorage.removeItem("accessToken");
-        localStorage.removeItem("refreshToken");
-        window.location.reload();
-    }
+   const {logout}= useAuthStore()
+
     return (
         <Dialog>
             <DialogTrigger asChild>

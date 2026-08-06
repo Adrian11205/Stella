@@ -3,6 +3,7 @@ import { useState } from "react";
 import { login } from "../../api/requests";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 
 interface RegisterLogProps {
@@ -42,14 +43,15 @@ export default function RegisterLog({ open, setOpen }: RegisterLogProps) {
     }
   }
 
+const {login: loginStore}= useAuthStore()
+
   function LogIn() {
     const payload = { email, password };
     login(payload)
       .then((data) => {
         toast.success("Registred with success");
         setOpen();
-        localStorage.setItem("accessToken", data.accessToken);
-        localStorage.setItem("refreshToken", data.refreshToken);
+        loginStore(data.accessToken, data.refreshToken)
       })
       .catch((error) => {
         toast.error(error?.response?.data?.message);

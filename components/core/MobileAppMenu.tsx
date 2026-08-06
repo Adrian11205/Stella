@@ -1,65 +1,68 @@
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import { Dialog, DialogContent, DialogTrigger } from "../../components/ui/dialog";
-import Account from './Account'
-
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "../../components/ui/dialog";
+import Account from "./Account";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 type MobileAppMenuProps = {
-    onRegisterClick: () => void;
-    onLoginClick: () => void;
+  onRegisterClick: () => void;
+  onLoginClick: () => void;
 };
 
-export default function MobileAppMenu({ onRegisterClick, onLoginClick }: MobileAppMenuProps) {
-    const [dialogOpen, setDialogOpen] = useState(false);
-    const isAuth = typeof localStorage !== "undefined" ?
-        localStorage.getItem("accessToken") : false
+export default function MobileAppMenu({
+  onRegisterClick,
+  onLoginClick,
+}: MobileAppMenuProps) {
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const { isAuth } = useAuthStore();
 
-    return (
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-
-            {isAuth ? (
-                <>
-                    <Account />
-                </>
-            ) : (
-                <>
-                    <DialogTrigger asChild>
-                        <button
-                            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm"
-                            aria-label="Open mobile menu"
-                        >
-                            <Menu className="h-5 w-5" />
-                        </button>
-                    </DialogTrigger>
-                    <DialogContent className="sm:hidden fixed left-1/2 top-[32%] z-50 w-[min(90vw,260px)] -translate-x-1/2 rounded-3xl border border-gray-200 bg-white p-4 shadow-xl outline-none">
-                        <div className="space-y-3 flex flex-col items-center">
-                            <span className="text-center text-lg font-bold text-gray-700 block">
-                                {("menu")}
-                            </span>
-                            <button
-                                onClick={() => {
-                                    setDialogOpen(false);
-                                    onRegisterClick();
-                                }}
-                                className="w-full rounded-[28px] bg-slate-100 px-4 py-3 text-base font-semibold  transition hover:bg-slate-100  hover:text-slate-600  border border-slate-300 disabled:cursor-not-allowed disabled:opacity-60"
-                            >
-                                {("register")}
-                            </button>
-                            <button
-                                onClick={() => {
-                                    setDialogOpen(false);
-                                    onLoginClick();
-                                }}
-                                className="w-full rounded-[28px] bg-slate-100 px-4 py-3 text-base font-semibold transition hover:bg-slate-100  hover:text-slate-600  border border-slate-300 disabled:cursor-not-allowed disabled:opacity-60"
-                            >
-                                {("login")}
-                            </button>
-                        </div>
-                    </DialogContent>
-                </>
-            )
-            }
-
-        </Dialog>
-    );
+  return (
+    <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+      {isAuth ? (
+        <>
+          <Account />
+        </>
+      ) : (
+        <>
+          <DialogTrigger asChild>
+            <button
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm"
+              aria-label="Open mobile menu"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          </DialogTrigger>
+          <DialogContent className="sm:hidden fixed left-1/2 top-[32%] z-50 w-[min(90vw,260px)] -translate-x-1/2 rounded-3xl border border-gray-200 bg-white p-4 shadow-xl outline-none">
+            <div className="space-y-3 flex flex-col items-center">
+              <span className="text-center text-lg font-bold text-gray-700 block">
+                {"menu"}
+              </span>
+              <button
+                onClick={() => {
+                  setDialogOpen(false);
+                  onRegisterClick();
+                }}
+                className="w-full rounded-[28px] bg-slate-100 px-4 py-3 text-base font-semibold  transition hover:bg-slate-100  hover:text-slate-600  border border-slate-300 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {"register"}
+              </button>
+              <button
+                onClick={() => {
+                  setDialogOpen(false);
+                  onLoginClick();
+                }}
+                className="w-full rounded-[28px] bg-slate-100 px-4 py-3 text-base font-semibold transition hover:bg-slate-100  hover:text-slate-600  border border-slate-300 disabled:cursor-not-allowed disabled:opacity-60"
+              >
+                {"login"}
+              </button>
+            </div>
+          </DialogContent>
+        </>
+      )}
+    </Dialog>
+  );
 }

@@ -2,6 +2,7 @@
 import { FaUserCircle } from "react-icons/fa";
 import { getMyself, updateUserProfile } from "../../api/requests";
 import { useEffect, useState } from "react";
+import AuthGuard from "@/components/layout/AuthGuard";
 
 
 function Profile() {
@@ -52,6 +53,7 @@ function Profile() {
     };
 
     return (
+        <AuthGuard>
         <div className="flex items-start justify-center bg-gray-50 px-4 py-12.75">
             <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg border border-gray-300">
 
@@ -109,7 +111,9 @@ function Profile() {
                 </div>
             </div>
         </div>
+    </AuthGuard>
     );
+
 }
 
 export default Profile;

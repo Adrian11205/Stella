@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {
   Truck,
@@ -8,7 +8,7 @@ import {
   Heart,
   Search,
 } from "lucide-react";
-import Image from 'next/image'
+import Image from "next/image";
 import SkipTo from "./ShipTo";
 import Account from "./Account";
 import { useState } from "react";
@@ -19,13 +19,14 @@ import MobileAppMenu from "./MobileAppMenu";
 import Languages from "./Languages";
 import useCartStore from "../../stores/useCartStore";
 import useFavoriteStore from "../../stores/useFavoriteStore";
-import SwitchTheme from "./SwitchTheme"
+import SwitchTheme from "./SwitchTheme";
+import { useAuthStore } from "@/stores/useAuthStore";
 
 function Header() {
   const [isRegister, setIsRegister] = useState(false);
   const [isLog, setIsLog] = useState(false);
-  const isAuth = typeof localStorage !== "undefined" ?
-    localStorage.getItem("accessToken") : false
+
+  const { isAuth } = useAuthStore();
 
   const { itemsNumber } = useCartStore();
   const { favoriteNumber } = useFavoriteStore();
@@ -39,28 +40,28 @@ function Header() {
           <div className="hidden sm:flex gap-3 sm:gap-6 text-sm">
             <span className="flex items-center gap-1 cursor-pointer group relative">
               <Truck color="#5796a8" />
-              {("trustedShipping")}
+              {"trustedShipping"}
               <div className="absolute top-6 left-0 bg-white text-gray-800 text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
-                <p className="font-semibold">{("freeShipping")}</p>
-                <p className="text-gray-500">{("onAllOrders")}</p>
+                <p className="font-semibold">{"freeShipping"}</p>
+                <p className="text-gray-500">{"onAllOrders"}</p>
               </div>
             </span>
 
             <span className="flex items-center gap-1 cursor-pointer group relative">
               <Undo2 color="#5796a8" />
-              {("easyReturns")}
+              {"easyReturns"}
               <div className="absolute top-6 left-0 bg-white text-gray-800 text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
-                <p className="font-semibold">{("thirtyDayReturns")}</p>
-                <p className="text-gray-500">{("noQuestionsAsked")}</p>
+                <p className="font-semibold">{"thirtyDayReturns"}</p>
+                <p className="text-gray-500">{"noQuestionsAsked"}</p>
               </div>
             </span>
 
             <span className="flex items-center gap-1 cursor-pointer group relative">
               <ShieldCheck color="#5796a8" />
-              {("secureShopping")}
+              {"secureShopping"}
               <div className="absolute top-6 left-0 bg-white text-gray-800 text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
-                <p className="font-semibold">{("sslEncrypted")}</p>
-                <p className="text-gray-500">{("yourDataIsSafe")}</p>
+                <p className="font-semibold">{"sslEncrypted"}</p>
+                <p className="text-gray-500">{"yourDataIsSafe"}</p>
               </div>
             </span>
           </div>
@@ -68,7 +69,7 @@ function Header() {
 
         <div className="bg-white h-20 flex items-center justify-between px-6 shadow-sm">
           <button
-            onClick={() => ("/home")}
+            onClick={() => "/home"}
             className="flex items-center whitespace-nowrap hover:opacity-80 transition cursor-pointer"
           >
             <Image
@@ -89,7 +90,7 @@ function Header() {
             </div>
             <input
               type="text"
-              placeholder={("search")}
+              placeholder={"search"}
               className="w-full rounded-lg px-10 py-2 shadow-sm bg-blue-50 focus:outline-none focus:ring-2 focus:ring-[#5e9e9e]"
             />
           </div>
@@ -121,7 +122,7 @@ function Header() {
                 </button>
 
                 <button
-                  onClick={() => ("/wishlist")}
+                  onClick={() => "/wishlist"}
                   className="relative flex items-center"
                 >
                   <Heart color="#81858a" />
@@ -168,7 +169,7 @@ function Header() {
               </div>
               <input
                 type="text"
-                placeholder={("search")}
+                placeholder={"search"}
                 className="w-full bg-transparent pl-7 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none"
               />
             </div>

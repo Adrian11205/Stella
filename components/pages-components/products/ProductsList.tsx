@@ -6,6 +6,7 @@ import ProductCard from "./ProductCard";
 import { getProducts, deleteProduct } from "@/api/requests";
 import { toast } from "sonner";
 import { Product, OrderEnum } from "@/api/types";
+import { redirect } from "next/navigation";
 
 export default function ProductsList() {
   const [showAddProduct, setShowAddProduct] = useState(false);
@@ -13,6 +14,8 @@ export default function ProductsList() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
+
+
 
   const getAllProducts = () => {
     getProducts({
@@ -42,6 +45,8 @@ export default function ProductsList() {
     getAllProducts();
   }, []);
 
+  
+
   if (error) {
     return <div>{error}</div>;
   }
@@ -61,6 +66,8 @@ export default function ProductsList() {
       </div>
     );
   }
+
+
 
   return (
     <div className="p-6 ">
