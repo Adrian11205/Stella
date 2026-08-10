@@ -1,16 +1,52 @@
+import { Product } from "@/api/types";
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
-interface CartStore {
-    itemsNumber: number;
-    setItemsNumber: () => void;
+export interface CartProduct {
+  product: Product;
+  quantity: number;
 }
 
-const useCartStore = create<CartStore>((set) => ({
-    itemsNumber: 0,
-    setItemsNumber: () => {
-        return set((state) => ({itemsNumber: state.itemsNumber + 1}));
-    }
-}));
+interface CartStore {
+  products: CartProduct[];
+  setProduct: (product: CartProduct) => void;
+  deleteProduct: (productId: string) => void;
+  incrementQuantity: (productId: string) => void;
+  decrementQuantity: (productId: string) => void;
+  clearCart: (product: CartProduct) => void;
+}
 
+const useCartStore = create<CartStore>()(
+  persist(
+    (set, get) => ({
+      products: [],
 
-export default useCartStore
+      setProduct: (product) => {
+        const existItem = get().products.find(
+          (item) => item.product.id === product.product.id);
+
+        if (existItem) {
+        }
+
+        return set((state) => ({
+          products: [...state.products,product],
+        }));
+      },
+
+      deleteProduct: () => {},
+
+      incrementQuantity: () => {},
+
+      decrementQuantity: () => {},
+
+      clearCart: () => {},
+    }),
+
+    {
+      name: "product-cart",
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
+);
+
+export default useCartStore;
