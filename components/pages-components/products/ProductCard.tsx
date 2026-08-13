@@ -1,10 +1,13 @@
-import { Heart, ShoppingCart, Trash2, Pencil, X } from "lucide-react";
+import { Heart, ShoppingCart, Trash2, Pencil, X, Plus, Minus } from "lucide-react";
 import { Product } from "@/api/types";
 import Image from "next/image";
 import { useState } from "react";
 import AddProducts from "./AddProducts";
+import useCartStore from "@/stores/useCartStore"; 
+import Products from "@/app/products/page";
 
-interface ProductCardProps {
+
+interface  ProductCardProps {
   viewMode: "grid" | "list";
   product: Product;
   onDelete: (id: string) => void;
@@ -18,6 +21,43 @@ export default function ProductCard({
   getAllProducts,
 }: ProductCardProps) {
   const [showAddProduct, setShowAddProduct] = useState(false);
+
+  const {decrementQuantity, incrementQuantity, setProduct, products} = useCartStore()
+
+  const quantity = products.find((item) => {
+      return item.product.id === product.id
+  })?.quantity || 0
+
+const cartControl =
+    quantity === 0 ? (
+      <button
+        onClick={() => setProduct({product, quantity: 1 })}
+        className="flex items-center justify-center gap-1 bg-blue-900 hover:bg-blue-950 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
+      >
+        <ShoppingCart size={14} />
+        <span>Add</span>
+      </button>
+    ) : (
+      <div className="flex items-center justify-between bg-blue-900 text-white rounded-lg px-1 py-2 text-xs font-medium">
+        <button
+          aria-label="Decrease quantity"
+          onClick={() => decrementQuantity(product.id)}
+          className="p-1 rounded hover:bg-blue-800 transition-colors cursor-pointer"
+        >
+          <Minus size={14} />
+        </button>
+
+        <span className="min-w-5 text-center">{quantity}</span>
+
+        <button
+          aria-label="Increase quantity"
+          onClick={() => incrementQuantity(product.id)}
+          className="p-1 rounded hover:bg-blue-800 transition-colors cursor-pointer"
+        >
+          <Plus size={14} />
+        </button>
+      </div>
+    );
 
   return (
     <>
@@ -62,20 +102,20 @@ export default function ProductCard({
 
             {/* Butoane */}
             <div
-              onClick={() => {
-                setShowAddProduct(true);
-              }}
+             
               className="grid grid-cols-3 gap-1.5 mt-3"
             >
-              <button className="flex items-center justify-center gap-1 bg-green-800 hover:bg-green-900 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap">
+              <button
+               onClick={() => {
+                setShowAddProduct(true);
+              }}
+              
+              className="flex items-center justify-center gap-1 bg-green-800 hover:bg-green-900 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap">
                 <Pencil size={14} />
                 <span>Edit</span>
               </button>
 
-              <button className="flex items-center justify-center gap-1 bg-blue-900 hover:bg-blue-950 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap">
-                <ShoppingCart size={14} />
-                <span>Add</span>
-              </button>
+              {cartControl}
 
               <button
                 onClick={() => onDelete(product.id)}
@@ -114,6 +154,7 @@ export default function ProductCard({
             <button
               aria-label="Add to favorites"
               onClick={() => {}}
+
               className="shrink-0"
             >
               <Heart
@@ -124,20 +165,20 @@ export default function ProductCard({
 
             {/* Butoane */}
             <div
+              
+              className="flex items-center gap-1.5 shrink-0"
+            >
+              <button 
               onClick={() => {
                 setShowAddProduct(true);
               }}
-              className="flex items-center gap-1.5 shrink-0"
-            >
-              <button className="flex items-center gap-1 bg-green-800 hover:bg-green-900 text-white rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer">
+              
+              className="flex items-center gap-1 bg-green-800 hover:bg-green-900 text-white rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer">
                 <Pencil size={14} />
                 <span>Edit</span>
               </button>
 
-              <button className="flex items-center gap-1 bg-blue-900 hover:bg-blue-950 text-white rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer">
-                <ShoppingCart size={14} />
-                <span>Add</span>
-              </button>
+              {cartControl}
 
               <button
                 onClick={() => onDelete(product.id)}
@@ -178,3 +219,7 @@ export default function ProductCard({
     </>
   );
 }
+function increaseQuantity(id: string): void {
+  throw new Error("Function not implemented.");
+}
+

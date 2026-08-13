@@ -21,6 +21,7 @@ import useCartStore from "../../stores/useCartStore";
 import useFavoriteStore from "../../stores/useFavoriteStore";
 import SwitchTheme from "./SwitchTheme";
 import { useAuthStore } from "@/stores/useAuthStore";
+import Link from "next/link";
 
 function Header() {
   const [isRegister, setIsRegister] = useState(false);
@@ -28,7 +29,7 @@ function Header() {
 
   const { isAuth } = useAuthStore();
 
-  const { itemsNumber } = useCartStore();
+  const { products } = useCartStore();
   const { favoriteNumber } = useFavoriteStore();
 
   return (
@@ -109,17 +110,17 @@ function Header() {
 
             {isAuth ? (
               <>
-                <button
-                  // onClick={() => ("/cart")}
+                < Link
+                href={"/cart"}
                   className="relative flex items-center"
                 >
                   {/* <ShoppingCart  /> */}
-                  {itemsNumber > 0 && (
+                  {products.length > 0 && (
                     <div className="absolute -top-2.5 -right-2.5 bg-red-500 rounded-full size-5 text-white flex items-center justify-center">
-                      {itemsNumber}
+                      {products.length}
                     </div>
                   )}
-                </button>
+                </Link>
 
                 <button
                   onClick={() => "/wishlist"}
