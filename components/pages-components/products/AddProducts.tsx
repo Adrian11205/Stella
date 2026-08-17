@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Product } from "@/api/types";
-
+import { useMutation } from "@tanstack/react-query";
 interface AddProductsProps {
   refetchProducts: () => void;
   editMode: boolean;
@@ -24,19 +24,27 @@ export default function AddProducts({
   });
 
   type FormData = z.infer<typeof schema>;
+  const addMutation = useMutation({
+    mutationFn: (data: FormData) => {
+      return createProduct({
+        category: data.brand,
+        price: data.price,
+        name: data.title,
+      });
+    },
 
+    onSuccess: () => {
+      toast.success("The product is added");
+      reset({ brand: "", title: "", price: undefined });
+      refetchProducts();
+    },
+    onError: (err) => {
+      toast.error(err.message)
+    },
+    
+  });
   const addProduct = (data: FormData) => {
-    createProduct({
-      category: data.brand,
-      price: data.price,
-      name: data.title,
-    })
-      .then(() => {
-        toast.success("The product is added");
-        reset({ brand: "", title: "", price: undefined });
-        refetchProducts();
-      })
-      .catch((err) => toast.error(err?.response?.data?.message));
+   addMutation.mutate(data)
   };
 
   const editProduct = (data: FormData) => {
