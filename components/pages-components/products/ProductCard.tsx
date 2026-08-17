@@ -219,7 +219,5 @@ const cartControl =
     </>
   );
 }
-function increaseQuantity(id: string): void {
-  throw new Error("Function not implemented.");
-}
+
 

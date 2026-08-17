@@ -31,7 +31,9 @@ function Header() {
 
   const { products } = useCartStore();
   const { favoriteNumber } = useFavoriteStore();
-
+ const totalProducts = products.reduce((total , product) => {
+  return total+=product.quantity
+ },0)
   return (
     <div>
       <header>
@@ -101,12 +103,7 @@ function Header() {
           <Languages />
 
           <div className="hidden sm:flex items-center gap-6">
-            {/* <button className="flex items-center">
-               <ShoppingCart color="#81858a" /> 
-            </button> 
-             <button className="flex items-center">
-               <Heart color="#81858a" /> 
-            </button>  */}
+           
 
             {isAuth ? (
               <>
@@ -114,10 +111,10 @@ function Header() {
                 href={"/cart"}
                   className="relative flex items-center"
                 >
-                  {/* <ShoppingCart  /> */}
+                  <ShoppingCart  />
                   {products.length > 0 && (
                     <div className="absolute -top-2.5 -right-2.5 bg-red-500 rounded-full size-5 text-white flex items-center justify-center">
-                      {products.length}
+                      {totalProducts}
                     </div>
                   )}
                 </Link>

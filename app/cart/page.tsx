@@ -1,21 +1,26 @@
 "use client";
-import {ShoppingCart, Trash2,Minus,Plus } from "lucide-react"
+import { ShoppingCart, Trash2, Minus, Plus } from "lucide-react";
 import AuthGuard from "@/components/layout/AuthGuard";
 import Image from "next/image";
 import Link from "next/link";
 import useCartStore from "@/stores/useCartStore";
 
 function Cart() {
+  const {
+    products,
+    clearCart,
+    deleteProduct,
+    incrementQuantity,
+    decrementQuantity,
+  } = useCartStore();
 
-const {products, clearCart} = useCartStore()
+  const totalPrice = products.reduce((total, product) => {
+    return total + product.product.price * product.quantity;
+  }, 0);
 
-const totalPrice = products.reduce((total, product) => {
-  return total+product.product.price*product.quantity
-}, 0)
-
-    return (
-        <AuthGuard>
-      <div className="p-6 mt-10 max-w-4xl mx-auto w-full">
+  return (
+    <AuthGuard>
+      <div className="p-6 h-full mt-10 max-w-4xl mx-auto w-full">
         <div className="flex flex-row items-center justify-between mb-6">
           <h1 className="text-2xl font-bold flex items-center gap-3">
             <ShoppingCart className="w-7 h-7" />
@@ -23,9 +28,10 @@ const totalPrice = products.reduce((total, product) => {
           </h1>
 
           {products.length > 0 && (
-            <button 
-            onClick={clearCart}
-             className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer">
+            <button
+              onClick={clearCart}
+              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer"
+            >
               <Trash2 size={16} />
               Clear cart
             </button>
@@ -76,6 +82,7 @@ const totalPrice = products.reduce((total, product) => {
                   <div className="flex items-center justify-between gap-1 bg-blue-900 text-white rounded-lg px-1 py-2 text-sm font-medium shrink-0">
                     <button
                       aria-label="Decrease quantity"
+                      onClick={() => decrementQuantity(item.product.id)}
                       className="p-1 rounded hover:bg-blue-800 transition-colors cursor-pointer"
                     >
                       <Minus size={16} />
@@ -85,6 +92,7 @@ const totalPrice = products.reduce((total, product) => {
 
                     <button
                       aria-label="Increase quantity"
+                      onClick={() => incrementQuantity(item.product.id)}
                       className="p-1 rounded hover:bg-blue-800 transition-colors cursor-pointer"
                     >
                       <Plus size={16} />
@@ -97,6 +105,7 @@ const totalPrice = products.reduce((total, product) => {
 
                   <button
                     aria-label="Remove from cart"
+                    onClick={() => deleteProduct(item.product.id)}
                     className="flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-lg p-2 transition-colors cursor-pointer shrink-0"
                   >
                     <Trash2 size={16} />
@@ -119,9 +128,7 @@ const totalPrice = products.reduce((total, product) => {
         )}
       </div>
     </AuthGuard>
-
-
-    )
+  );
 }
 
-export default Cart
+export default Cart;
