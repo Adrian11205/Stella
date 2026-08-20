@@ -8,6 +8,7 @@ import {
   Mail,
   MessageSquareText,
   Ellipsis,
+  ShoppingCart,
 } from "lucide-react";
 import { FaUserCircle } from "react-icons/fa";
 import SignOutAccount from "./SignOutAccount";
@@ -25,6 +26,7 @@ import {
   DropdownMenuLabel,
 } from "./../../components/ui/dropdown-menu";
 import { useAuthStore } from "@/stores/useAuthStore";
+import Link from "next/link";
 
 function Account() {
   const { user } = useAuthStore();
@@ -53,6 +55,13 @@ function Account() {
           <button onClick={() => "/profile"} className="cursor-pointer">
             {"profile"}
           </button>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem className="gap-3 border-b  cursor-pointer rounded-none hover:bg-emerald-50 hover:text-emerald-600">
+          <ShoppingCart className="w-4 h-4" />
+          <Link href={"products"} className="cursor-pointer">
+            {"products"}
+          </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem className="gap-3  cursor-pointer border-b rounded-none hover:bg-emerald-50 hover:text-emerald-600">

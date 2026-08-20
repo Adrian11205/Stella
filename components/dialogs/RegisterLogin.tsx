@@ -60,18 +60,6 @@ export default function RegisterLog({ open, setOpen }: RegisterLogProps) {
     }
   })
 
-  // function LogIn() {
-  //   login(payload)
-  //     .then((data) => {
-  //       toast.success("Registred with success");
-  //       setOpen();
-  //       loginStore(data.accessToken, data.refreshToken)
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error?.response?.data?.message);
-  //     });
-  // }
-
   const InputLogData = [
     {
       name: "Email",
