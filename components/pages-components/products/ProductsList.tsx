@@ -8,6 +8,8 @@ import { toast } from "sonner";
 import { Product, OrderEnum } from "@/api/types";
 import Link from "next/link"
 import useCartStore from "@/stores/useCartStore";
+import { useMutation } from "@tanstack/react-query";
+
 export default function ProductsList() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -30,18 +32,19 @@ export default function ProductsList() {
       })
       .finally(() => setIsLoading(false));
   };
-  const {deleteProduct:deleteProductFromCart} = useCartStore()
+  const { deleteProduct: deleteProductFromCart } = useCartStore()
 
-
-  const onDelete = (id: string) => {
-    deleteProduct(id).then(() => {
-      toast.success("Deleted succesfuly");
-      // getAllProducts()
-      const newProductsList = products.filter((product) => product.id !== id);
-      setProducts(newProductsList);
-      deleteProductFromCart(id)
-    });
-  };
+const deleteMutation = useMutation({
+      mutationFn: deleteProduct,
+    
+      onSuccess: (id: string) => {        
+        toast.success("Deleted succesfuly");
+        getAllProducts()
+        const newProductsList = products.filter((product) => product.id !== id);
+        setProducts(newProductsList);
+        deleteProductFromCart(id)
+      }
+    })
 
   useEffect(() => {
     getAllProducts();
@@ -68,16 +71,14 @@ export default function ProductsList() {
           <div className="flex flex-row gap-2">
             <button aria-label="Grid View" onClick={() => setViewMode("grid")}>
               <Grid
-                className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-110 ${
-                  viewMode === "grid" ? "text-blue-700" : "text-black"
-                }`}
+                className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-110 ${viewMode === "grid" ? "text-blue-700" : "text-black"
+                  }`}
               />
             </button>
             <button aria-label="Menu view" onClick={() => setViewMode("list")}>
               <Menu
-                className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-105 ${
-                  viewMode === "list" ? "text-blue-700" : "text-black"
-                }`}
+                className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-105 ${viewMode === "list" ? "text-blue-700" : "text-black"
+                  }`}
               />
             </button>
           </div>
@@ -87,7 +88,7 @@ export default function ProductsList() {
           <Link
             className="flex items-center justify-center gap-3 h-15 px-4 bg-blue-300
                rounded-lg hover:bg-blue-400 transition-colors duration-300 "
-               href={"/cart"}
+            href={"/cart"}
           >
             <ShoppingCart className="w-8 h-8" />
             Go to Cart
@@ -153,7 +154,7 @@ export default function ProductsList() {
             key={product.id}
             viewMode={viewMode}
             product={product}
-            onDelete={onDelete}
+            onDelete={deleteMutation.mutate}
             getAllProducts={() => {
               getAllProducts();
             }}

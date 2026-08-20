@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import AddProducts from "./AddProducts";
 import useCartStore from "@/stores/useCartStore"; 
-import Products from "@/app/products/page";
 
 
 interface  ProductCardProps {

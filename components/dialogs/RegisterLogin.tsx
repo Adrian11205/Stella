@@ -4,7 +4,7 @@ import { login } from "../../api/requests";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
-
+import { useMutation } from "@tanstack/react-query";
 
 interface RegisterLogProps {
   open: boolean;
@@ -43,20 +43,34 @@ export default function RegisterLog({ open, setOpen }: RegisterLogProps) {
     }
   }
 
-const {login: loginStore}= useAuthStore()
+  const { login: loginStore } = useAuthStore()
 
-  function LogIn() {
-    const payload = { email, password };
-    login(payload)
-      .then((data) => {
-        toast.success("Registred with success");
-        setOpen();
-        loginStore(data.accessToken, data.refreshToken)
-      })
-      .catch((error) => {
-        toast.error(error?.response?.data?.message);
-      });
-  }
+  const payload = { email, password };
+
+  const logInMutation = useMutation({
+    mutationFn:login,
+    
+    onSuccess: (data) => {
+      toast.success("Registred with success");
+      setOpen();
+      loginStore(data.accessToken, data.refreshToken)
+    },
+    onError:(error)=>{
+        toast.error(error.message);
+    }
+  })
+
+  // function LogIn() {
+  //   login(payload)
+  //     .then((data) => {
+  //       toast.success("Registred with success");
+  //       setOpen();
+  //       loginStore(data.accessToken, data.refreshToken)
+  //     })
+  //     .catch((error) => {
+  //       toast.error(error?.response?.data?.message);
+  //     });
+  // }
 
   const InputLogData = [
     {
@@ -119,7 +133,7 @@ const {login: loginStore}= useAuthStore()
           ))}
 
           <button
-            onClick={LogIn}
+            onClick={()=>{ logInMutation.mutate(payload)}}
             disabled={email.length === 0 || password.length === 0}
             className="bg-blue-400 h-10 text-white rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           >

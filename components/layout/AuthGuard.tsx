@@ -2,7 +2,6 @@
 
 import { useAuthStore } from "@/stores/useAuthStore";
 import type { ReactNode } from "react";
-import {redirect} from "next/navigation"
 
 type AuthProps = {
   children: ReactNode;

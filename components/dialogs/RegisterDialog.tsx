@@ -4,6 +4,7 @@ import { register } from "../..//api/requests";
 import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
+import { useMutation } from "@tanstack/react-query";
 
 interface RegisterProps {
   open: boolean;
@@ -25,27 +26,27 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
 
   const [showPassword, setShowPassword] = useState(false);
 
-const {login}= useAuthStore()
+  const { login } = useAuthStore()
 
-  function submit() {
-    const payload = {
-      email,
-      firstName,
-      lastName,
-      password,
-      phoneNumber,
-    };
+  const payload = {
+    email,
+    firstName,
+    lastName,
+    password,
+    phoneNumber,
+  };
 
-    register(payload)
-      .then((data) => {
-        toast.success("Registred with success")
-        login(data.accessToken, data.refreshToken)
-        setOpen()
-      })
-      .catch((error) => {
-        toast.error(error?.response?.data?.message);
-      });
-  }
+  const registerMutation = useMutation({
+    mutationFn: register,
+    onSuccess: (data) => {
+      toast.success("Registred with success")
+      login(data.accessToken, data.refreshToken)
+      setOpen()
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    }
+  })
 
   function changeEmail(newEmail: string) {
     setEmail(newEmail);
@@ -227,7 +228,7 @@ const {login}= useAuthStore()
           </div>
 
           <button
-            onClick={submit}
+            onClick={()=>{registerMutation.mutate(payload)}}
             disabled={
               email.length === 0 ||
               firstName.length === 0 ||

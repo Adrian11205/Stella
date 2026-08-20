@@ -41,24 +41,28 @@ export default function AddProducts({
     onError: (err) => {
       toast.error(err.message)
     },
-    
+
   });
   const addProduct = (data: FormData) => {
-   addMutation.mutate(data)
+    addMutation.mutate(data)
   };
 
-  const editProduct = (data: FormData) => {
-    updateProduct(product?.id || "", {
-      category: data.brand,
-      price: data.price,
-      name: data.title,
-    })
-      .then(() => {
-        toast.success("The product is updated");
-        refetchProducts();
+  const editMutation = useMutation({
+    mutationFn: (data: FormData) => {
+      return updateProduct(product?.id || "", {
+        category: data.brand,
+        price: data.price,
+        name: data.title,
       })
-      .catch((err) => toast.error(err?.response?.data?.message));
-  };
+    },
+    onSuccess:()=>{
+       toast.success("The product is updated");
+        refetchProducts();
+    },
+    onError:(err)=>{
+       toast.error(err.message)
+    }
+  })
 
   const {
     register,
@@ -74,8 +78,9 @@ export default function AddProducts({
       title: product?.name || "",
     },
   });
+
   return (
-    <form onSubmit={handleSubmit(editMode ? editProduct : addProduct)}>
+    <form onSubmit={handleSubmit(editMode ? editMutation.data : addProduct)}>
       <div className="w-fit h-fit flex flex-col items-center justify-center gap-4 p-6 rounded-2xl shadow-lg bg-blue-200">
         <span className="text-blue-900 text-xl font-bold flex flex-col justify-center items-center ">
           Please complete the fields below
