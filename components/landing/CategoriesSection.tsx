@@ -83,7 +83,7 @@ export default function CategoriesSection() {
             Shop by Category
           </h2>
 
-          <div className="text-[#00B5B5] text-sm sm:text-base md:text-lg lg:text-xl font-medium hover:text-[#00A0A0] transition-colors cursor-pointer">
+          <div className="text-brand text-sm sm:text-base md:text-lg lg:text-xl font-medium hover:text-brand-hover transition-colors cursor-pointer">
             See all
           </div>
         </div>
@@ -95,9 +95,9 @@ export default function CategoriesSection() {
             return (
               <div
                 key={category.id}
-                className="flex items-center gap-3 p-3 sm:p-4 md:p-5 border-2 border-gray-200 rounded-xl shadow-md hover:shadow-xl hover:border-gray-300 transition-all duration-300"
+                className="flex items-center gap-3 p-3 sm:p-4 md:p-5 border-2 border-muted rounded-xl shadow-md hover:shadow-xl hover:border-muted transition-all duration-300"
               >
-                <Icon className="text-[#00B5B5] w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
+                <Icon className="text-brand w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
 
                 <span className="text-sm sm:text-base md:text-lg font-medium">
                   {category.name}

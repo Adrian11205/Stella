@@ -35,17 +35,17 @@ export default function ProductsList() {
  
   const { deleteProduct: deleteProductFromCart } = useCartStore()
 
-const deleteMutation = useMutation({
-      mutationFn: deleteProduct,
-    
-      onSuccess: (id: string) => {        
-        toast.success("Deleted succesfuly");
-        getAllProducts()
-        const newProductsList = products.filter((product) => product.id !== id);
-        setProducts(newProductsList);
-        deleteProductFromCart(id)
-      }
-    })
+  const deleteMutation = useMutation({
+    mutationFn: deleteProduct,
+
+    onSuccess: (id: string) => {
+      toast.success("Deleted succesfuly");
+      getAllProducts()
+      const newProductsList = products.filter((product) => product.id !== id);
+      setProducts(newProductsList);
+      deleteProductFromCart(id)
+    }
+  })
 
  
 
@@ -55,14 +55,14 @@ const deleteMutation = useMutation({
 
   if (isPending) {
     return (
-      <div className="w-full h-100 flex items-center justify-center">
-        <Loader className="size-12 animate-spin` " />
+      <div className="w-full h-100 flex items-center justify-center text-muted-foreground">
+        <Loader className="size-12 animate-spin" />
       </div>
     );
   }
 
   const productsListHeader = (
-    <div className="text-xl font-bold mb-4 text-gray-800">
+    <div className="text-xl font-bold mb-4 text-foreground">
       <div className="flex flex-row items-center justify-around  gap-76 pb-3 pr-5 pl-3">
         <div className="flex flex-row items-center gap-4">
           <div className="font-medium ">Products ({products.length}) </div>
@@ -70,13 +70,13 @@ const deleteMutation = useMutation({
           <div className="flex flex-row gap-2">
             <button aria-label="Grid View" onClick={() => setViewMode("grid")}>
               <Grid
-                className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-110 ${viewMode === "grid" ? "text-blue-700" : "text-black"
+                className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-110 ${viewMode === "grid" ? "text-brand" : "text-muted-foreground"
                   }`}
               />
             </button>
             <button aria-label="Menu view" onClick={() => setViewMode("list")}>
               <Menu
-                className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-105 ${viewMode === "list" ? "text-blue-700" : "text-black"
+                className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-105 ${viewMode === "list" ? "text-brand" : "text-muted-foreground"
                   }`}
               />
             </button>
@@ -85,8 +85,8 @@ const deleteMutation = useMutation({
 
         <div className=" flex flex-row gap-7">
           <Link
-            className="flex items-center justify-center gap-3 h-15 px-4 bg-blue-300
-               rounded-lg hover:bg-blue-400 transition-colors duration-300 "
+            className="flex items-center justify-center gap-3 h-15 px-4 bg-secondary text-secondary-foreground
+              rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors duration-300 "
             href={"/cart"}
           >
             <ShoppingCart className="w-8 h-8" />
@@ -94,8 +94,8 @@ const deleteMutation = useMutation({
           </Link>
 
           <button
-            className="flex items-center justify-center gap-3 h-15 px-4 bg-blue-300
-               rounded-lg hover:bg-blue-400 transition-colors duration-300 "
+            className="flex items-center justify-center gap-3 h-15 px-4 bg-primary text-primary-foreground
+              rounded-lg hover:bg-primary/90 transition-colors duration-300 "
             onClick={() => setShowAddProduct(true)}
           >
             <CirclePlus size={30} />
@@ -104,13 +104,13 @@ const deleteMutation = useMutation({
 
           {showAddProduct && (
             <div
-              className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+              className="fixed inset-0 bg-foreground/50 flex items-center justify-center z-50"
               onClick={() => setShowAddProduct(false)}
             >
               <div onClick={(e) => e.stopPropagation()} className="relative">
                 <button
                   onClick={() => setShowAddProduct(false)}
-                  className="absolute -top-3 -right-3 bg-white rounded-full p-1 shadow-md hover:bg-gray-100"
+                  className="absolute -top-3 -right-3 bg-background text-foreground rounded-full p-1 shadow-md hover:bg-muted"
                 >
                   <X size={20} />
                 </button>

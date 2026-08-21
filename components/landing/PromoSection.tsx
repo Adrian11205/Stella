@@ -10,9 +10,9 @@ export default function Page3() {
           className="relative lg:col-span-1 h-130 rounded-3xl overflow-hidden bg-cover bg-center"
           style={{ backgroundImage: `url(${YourStyle})` }}
         >
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 bg-foreground/10" />
 
-          <div className="relative h-full flex flex-col justify-between p-6 text-white">
+          <div className="relative h-full flex flex-col justify-between p-6 text-background">
             <p className="font-bold text-lg">stella</p>
 
             <div>
@@ -36,13 +36,13 @@ export default function Page3() {
             <div className="absolute inset-0" />
 
             <div className="relative h-full flex flex-col justify-center p-2 ">
-              <p className="text-gray-600 text-sm">Timeless elegance</p>
+              <p className="text-chart-3 text-sm">Timeless elegance</p>
 
               <h2 className="text-2xl md:text-3xl font-semibold mt-2">
                 Discover our <br /> accessories collection
               </h2>
 
-              <button className="mt-4 w-fit px-5 py-2 rounded-lg bg-[#00B5B5] text-white">
+              <button className="mt-4 w-fit px-5 py-2 rounded-lg bg-brand text-background">
                 Shop Now
               </button>
             </div>
@@ -55,13 +55,13 @@ export default function Page3() {
             <div className="absolute inset-0 " />
 
             <div className="relative h-full flex flex-col justify-center p-2 ">
-              <p className="text-gray-600 text-sm">Find your perfect pair</p>
+              <p className="text-chart-3 text-sm">Find your perfect pair</p>
 
               <h2 className="text-2xl md:text-3xl font-semibold mt-2">
                 Explore our <br /> shoes collection
               </h2>
 
-              <button className="mt-4 w-fit px-5 py-2 rounded-lg bg-[#00B5B5] text-white">
+              <button className="mt-4 w-fit px-5 py-2 rounded-lg bg-background text-background">
                 Shop Now
               </button>
             </div>

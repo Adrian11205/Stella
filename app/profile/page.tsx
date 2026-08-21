@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 
 
 function Profile() {
-    
+
     const [isEditing, setIsEditing] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
 
@@ -71,69 +71,63 @@ function Profile() {
 
     return (
         <AuthGuard>
+            <div className="flex items-start justify-center bg-accent px-4 py-12.75">
+                <div className="w-full max-w-md bg-background p-6 rounded-2xl shadow-lg border border-border">
 
-            <button onClick = {()=> setCount(count+1)}> add
-            
-            </button>
+                    <div className="flex flex-col items-center mb-6">
+                        <FaUserCircle size={80} />
+                        <h1 className="mt-2 text-lg font-semibold">{("myProfile")}</h1>
+                    </div>
 
-        <div className="flex items-start justify-center bg-gray-50 px-4 py-12.75">
-            <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg border border-gray-300">
+                    <div className="flex flex-col gap-1 mb-4">
+                        <span className="text-sm text-chart-4">{("firstName")}</span>
+                        <input
+                            type="text"
+                            value={form.firstName}
+                            readOnly={!isEditing}
+                            onChange={(e) =>
+                                setForm((prev) => ({ ...prev, firstName: e.target.value }))
+                            }
+                            className="border rounded-lg px-3 py-2 text-sm w-full"
+                        />
+                    </div>
 
-                <div className="flex flex-col items-center mb-6">
-                    <FaUserCircle size={80} />
-                    <h1 className="mt-2 text-lg font-semibold">{("myProfile")}</h1>
-                </div>
+                    <div className="flex flex-col gap-1 mb-4">
+                        <span className="text-sm text-chart-3">{("lastName")}</span>
+                        <input
+                            type="text"
+                            value={form.lastName}
+                            readOnly={!isEditing}
+                            onChange={(e) =>
+                                setForm((prev) => ({ ...prev, lastName: e.target.value }))
+                            }
+                            className="border rounded-lg px-3 py-2 text-sm w-full"
+                        />
+                    </div>
 
-                <div className="flex flex-col gap-1 mb-4">
-                    <span className="text-sm text-gray-600">{("firstName")}</span>
-                    <input
-                        type="text"
-                        value={form.firstName}
-                        readOnly={!isEditing}
-                        onChange={(e) =>
-                            setForm((prev) => ({ ...prev, firstName: e.target.value }))
-                        }
-                        className="border rounded-lg px-3 py-2 text-sm w-full"
-                    />
-                </div>
-
-                <div className="flex flex-col gap-1 mb-4">
-                    <span className="text-sm text-gray-600">{("lastName")}</span>
-                    <input
-                        type="text"
-                        value={form.lastName}
-                        readOnly={!isEditing}
-                        onChange={(e) =>
-                            setForm((prev) => ({ ...prev, lastName: e.target.value }))
-                        }
-                        className="border rounded-lg px-3 py-2 text-sm w-full"
-                    />
-                </div>
-
-                <div className="flex flex-col gap-1 mb-4">
-                    <span className="text-sm text-gray-600">{("phoneNumber")}</span>
-                    <input
-                        type="text"
-                        value={form.phoneNumber}
-                        readOnly={!isEditing}
-                        onChange={(e) =>
-                            setForm((prev) => ({ ...prev, phoneNumber: e.target.value }))
-                        }
-                        className="border rounded-lg px-3 py-2 text-sm w-full"
-                    />
-                </div>
-                <div className="flex justify-center">
-                    <button
-                        onClick={handleSave}
-                        disabled={isSaving}
-                        className="w-60 h-11 bg-emerald-600 text-white py-2 rounded-lg text-sm font-medium hover:bg-emerald-700 transition disabled:opacity-70"
-                    >
-                        {isSaving ? ("saving") : isEditing ? ("saveChanges") : ("changeProfile")}
-                    </button>
+                    <div className="flex flex-col gap-1 mb-4">
+                        <span className="text-sm text-chart-4">{("phoneNumber")}</span>
+                        <input
+                            type="text"
+                            value={form.phoneNumber}
+                            readOnly={!isEditing}
+                            onChange={(e) =>
+                                setForm((prev) => ({ ...prev, phoneNumber: e.target.value }))
+                            }
+                            className="border rounded-lg px-3 py-2 text-sm w-full"
+                        />
+                    </div>
+                    <div className="flex justify-center">
+                        <button
+                            onClick={handleSave}
+                            disabled={isSaving}
+                            className="w-60 h-11 bg-primary text-primary-foreground py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition disabled:opacity-70"                    >
+                            {isSaving ? ("saving") : isEditing ? ("saveChanges") : ("changeProfile")}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </AuthGuard>
+        </AuthGuard>
     );
 
 }

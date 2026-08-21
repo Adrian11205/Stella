@@ -30,7 +30,7 @@ function Cart() {
           {products.length > 0 && (
             <button
               onClick={clearCart}
-              className="flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer"
+              className="flex items-center gap-2 bg-destructive hover:bg-destructive text-background rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer"
             >
               <Trash2 size={16} />
               Clear cart
@@ -39,12 +39,12 @@ function Cart() {
         </div>
 
         {products.length === 0 ? (
-          <div className="flex flex-col items-center gap-4 py-20 text-gray-500">
+          <div className="flex flex-col items-center gap-4 py-20 text-muted-foreground">
             <ShoppingCart className="w-16 h-16" />
             <span>Cosul este gol</span>
             <Link
               href="/products"
-              className="bg-blue-900 hover:bg-blue-950 text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors"
+              className="bg-blues hover:bg-primary/90 text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium transition-colors"
             >
               Mergi la produse
             </Link>
@@ -55,9 +55,9 @@ function Cart() {
               {products.map((item) => (
                 <div
                   key={item.product.id}
-                  className="bg-gray-100 p-3 flex flex-row items-center gap-4 rounded-2xl shadow-lg"
+                  className="bg-card text-card-foreground p-3 flex flex-row items-center gap-4 rounded-2xl shadow-lg"
                 >
-                  <div className="relative h-20 w-20 shrink-0 bg-gray-200 overflow-hidden rounded-xl">
+                  <div className="relative h-20 w-20 shrink-0 bg-muted overflow-hidden rounded-xl">
                     <Image
                       src={`https://picsum.photos/seed/${item.product.id}/200/200`}
                       alt={item.product.name}
@@ -68,22 +68,22 @@ function Cart() {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <div className="text-gray-400 text-xs">
+                    <div className="text-muted-foreground text-xs">
                       {item.product.category}
                     </div>
                     <div className="font-bold truncate">
                       {item.product.name}
                     </div>
-                    <div className="text-gray-500 text-sm">
+                    <div className="text-muted-foreground text-sm">
                       {item.product.price} lei / buc
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between gap-1 bg-blue-900 text-white rounded-lg px-1 py-2 text-sm font-medium shrink-0">
+                  <div className="flex items-center justify-between gap-1 bg-blues text-primary-foreground rounded-lg px-1 py-2 text-sm font-medium shrink-0">
                     <button
                       aria-label="Decrease quantity"
                       onClick={() => decrementQuantity(item.product.id)}
-                      className="p-1 rounded hover:bg-blue-800 transition-colors cursor-pointer"
+                      className="p-1 rounded hover:bg-primary/80 transition-colors cursor-pointer"
                     >
                       <Minus size={16} />
                     </button>
@@ -93,7 +93,7 @@ function Cart() {
                     <button
                       aria-label="Increase quantity"
                       onClick={() => incrementQuantity(item.product.id)}
-                      className="p-1 rounded hover:bg-blue-800 transition-colors cursor-pointer"
+                      className="p-1 rounded hover:bg-primary/80 transition-colors cursor-pointer"
                     >
                       <Plus size={16} />
                     </button>
@@ -106,7 +106,7 @@ function Cart() {
                   <button
                     aria-label="Remove from cart"
                     onClick={() => deleteProduct(item.product.id)}
-                    className="flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-lg p-2 transition-colors cursor-pointer shrink-0"
+                    className="flex items-center justify-center bg-destructive hover:bg-destructive/90 text-background rounded-lg p-2 transition-colors cursor-pointer shrink-0"
                   >
                     <Trash2 size={16} />
                   </button>
@@ -114,10 +114,10 @@ function Cart() {
               ))}
             </div>
 
-            <div className="flex flex-row items-center justify-between mt-8 border-t border-gray-300 pt-5">
+            <div className="flex flex-row items-center justify-between mt-8 border-t border-border pt-5">
               <Link
                 href="/products"
-                className="text-blue-900 hover:underline text-sm font-medium"
+                className="text-primary hover:text-primary/80 hover:underline text-sm font-medium"
               >
                 Continua cumparaturile
               </Link>

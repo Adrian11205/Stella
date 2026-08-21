@@ -81,8 +81,8 @@ export default function AddProducts({
 
   return (
     <form onSubmit={handleSubmit(editMode ? editMutation.data : addProduct)}>
-      <div className="w-fit h-fit flex flex-col items-center justify-center gap-4 p-6 rounded-2xl shadow-lg bg-blue-200">
-        <span className="text-blue-900 text-xl font-bold flex flex-col justify-center items-center ">
+      <div className="w-fit h-fit flex flex-col items-center justify-center gap-4 p-6 rounded-2xl shadow-lg bg-accent">
+        <span className="text-blues text-xl font-bold flex flex-col justify-center items-center ">
           Please complete the fields below
           <ArrowDown />
         </span>
@@ -91,10 +91,10 @@ export default function AddProducts({
             type="text"
             placeholder="Enter Brand"
             {...register("brand")}
-            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 shadow-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 hover:border-gray-400"
+            className="w-full px-4 py-2.5 rounded-lg border border-border bg-muted text-foreground/20 placeholder-muted-foreground shadow-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blues/70 focus:border-blues/70 hover:border-foreground/70"
           />
           {errors.brand && (
-            <p className="text-red-500 text-sm">{errors.brand.message}</p>
+            <p className="text-destructive text-sm">{errors.brand.message}</p>
           )}
         </div>
 
@@ -103,10 +103,10 @@ export default function AddProducts({
             type="text"
             placeholder="Enter Title"
             {...register("title")}
-            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 shadow-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 hover:border-gray-400"
+            className="w-full px-4 py-2.5 rounded-lg border border-accent bg-card text-foreground/20 placeholder-muted-foreground shadow-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blues/70 focus:border-blues/70 hover:border-muted-foreground"
           />
           {errors.title && (
-            <p className="text-red-500 text-sm">{errors.title.message}</p>
+            <p className="text-destructive text-sm">{errors.title.message}</p>
           )}
         </div>
         <div className="w-full">
@@ -114,17 +114,17 @@ export default function AddProducts({
             type="text"
             placeholder="Enter Price"
             {...register("price", { valueAsNumber: true })}
-            className="w-full px-4 py-2.5 rounded-lg border border-gray-300 bg-gray-50 text-gray-800 placeholder-gray-400 shadow-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 hover:border-gray-400"
+            className="w-full px-4 py-2.5 rounded-lg border border-accent bg-card text-foreground/20 placeholder-muted-foreground shadow-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blues/70 focus:border-blues/70 hover:border-muted-foreground"
           />
           {errors.price && (
-            <p className="text-red-500 text-sm">{errors.price.message}</p>
+            <p className="text-destructive text-sm">{errors.price.message}</p>
           )}
         </div>
 
         <button
           type="submit"
           disabled={!isValid}
-          className="w-full px-4  cursor-pointer disabled:cursor-not-allowed disabled:opacity-50  py-2.5 rounded-lg border border-gray-300 bg-blue-500 text-white  shadow-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-400 hover:border-gray-400"
+          className="w-full px-4  cursor-pointer disabled:cursor-not-allowed disabled:opacity-50  py-2.5 rounded-lg border border-ring bg-blues text-background  shadow-sm transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blues/70 focus:border-blues/70 hover:border-muted-foreground"
         >
           Add new Product
         </button>

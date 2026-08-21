@@ -31,46 +31,46 @@ function Header() {
 
   const { products } = useCartStore();
   const { favoriteNumber } = useFavoriteStore();
- const totalProducts = products.reduce((total , product) => {
-  return total+=product.quantity
- },0)
+  const totalProducts = products.reduce((total, product) => {
+    return total += product.quantity
+  }, 0)
   return (
     <div>
       <header>
-        <div className="bg-foreground text-white h-9 flex items-center justify-between px-3 sm:px-6">
+        <div className="bg-foreground text-background h-9 flex items-center justify-between px-3 sm:px-6">
           <SkipTo />
 
           <div className="hidden sm:flex gap-3 sm:gap-6 text-sm">
             <span className="flex items-center gap-1 cursor-pointer group relative">
               <Truck color="#5796a8" />
               {"trustedShipping"}
-              <div className="absolute top-6 left-0 bg-white text-gray-800 text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
+              <div className="absolute top-6 left-0 bg-foreground text-background text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
                 <p className="font-semibold">{"freeShipping"}</p>
-                <p className="text-gray-500">{"onAllOrders"}</p>
+                <p className="text-background">{"onAllOrders"}</p>
               </div>
             </span>
 
             <span className="flex items-center gap-1 cursor-pointer group relative">
               <Undo2 color="#5796a8" />
               {"easyReturns"}
-              <div className="absolute top-6 left-0 bg-white text-gray-800 text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
+              <div className="absolute top-6 left-0 bg-foreground text-background text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
                 <p className="font-semibold">{"thirtyDayReturns"}</p>
-                <p className="text-gray-500">{"noQuestionsAsked"}</p>
+                <p className="text-background">{"noQuestionsAsked"}</p>
               </div>
             </span>
 
             <span className="flex items-center gap-1 cursor-pointer group relative">
               <ShieldCheck color="#5796a8" />
               {"secureShopping"}
-              <div className="absolute top-6 left-0 bg-white text-gray-800 text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
+              <div className="absolute top-6 left-0 bg-foreground text-background text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
                 <p className="font-semibold">{"sslEncrypted"}</p>
-                <p className="text-gray-500">{"yourDataIsSafe"}</p>
+                <p className="text-background">{"yourDataIsSafe"}</p>
               </div>
             </span>
           </div>
         </div>
 
-        <div className="bg-white h-20 flex items-center justify-between px-6 shadow-sm">
+        <div className="bg-background text-foreground h-20 flex items-center justify-between px-6 shadow-sm">
           <button
             onClick={() => "/home"}
             className="flex items-center whitespace-nowrap hover:opacity-80 transition cursor-pointer"
@@ -88,13 +88,13 @@ function Header() {
           </button>
 
           <div className="hidden sm:block relative w-1/2">
-            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
               <Search />
             </div>
             <input
               type="text"
               placeholder={"search"}
-              className="w-full rounded-lg px-10 py-2 shadow-sm bg-blue-50 focus:outline-none focus:ring-2 focus:ring-[#5e9e9e]"
+              className="w-full rounded-lg px-10 py-2 shadow-sm bg-muted text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
 
@@ -103,17 +103,17 @@ function Header() {
           <Languages />
 
           <div className="hidden sm:flex items-center gap-6">
-           
+
 
             {isAuth ? (
               <>
                 < Link
-                href={"/cart"}
+                  href={"/cart"}
                   className="relative flex items-center"
                 >
-                  <ShoppingCart  />
+                  <ShoppingCart />
                   {products.length > 0 && (
-                    <div className="absolute -top-2.5 -right-2.5 bg-red-500 rounded-full size-5 text-white flex items-center justify-center">
+                    <div className="absolute -top-2.5 -right-2.5 bg-destructive rounded-full size-5 text-background flex items-center justify-center">
                       {totalProducts}
                     </div>
                   )}
@@ -123,9 +123,9 @@ function Header() {
                   onClick={() => "/wishlist"}
                   className="relative flex items-center"
                 >
-                  <Heart color="#81858a" />
+                  <Heart className="text-muted-foreground" />
                   {favoriteNumber > 0 && (
-                    <div className="absolute -top-2.5 -right-2.5 bg-red-500 rounded-full size-5 text-white flex items-center justify-center">
+                    <div className="absolute -top-2.5 -right-2.5 bg-destructive rounded-full size-5 text-background flex items-center justify-center">
                       {favoriteNumber}
                     </div>
                   )}
@@ -159,24 +159,24 @@ function Header() {
           </div>
         </div>
 
-        <div className="sm:hidden bg-white px-6 py-3 ">
+        <div className="sm:hidden bg-background px-6 py-3 ">
           <div className="flex items-center gap-2">
-            <div className="relative flex-1 rounded-full border border-gray-200 bg-slate-100 px-3 py-2">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+            <div className="relative flex-1 rounded-full border border-border bg-muted px-3 py-2">
+              <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                 <Search className="h-4 w-4" />
               </div>
               <input
                 type="text"
                 placeholder={"search"}
-                className="w-full bg-transparent pl-7 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none"
+                className="w-full bg-transparent pl-7 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
               />
             </div>
 
-            <button className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm">
+            <button className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm">
               <ShoppingCart className="h-5 w-5" />
             </button>
 
-            <button className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-gray-200 bg-white text-gray-700 shadow-sm">
+            <button className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-border bg-background text-foreground shadow-sm">
               <Heart className="h-5 w-5" />
             </button>
           </div>

@@ -1,5 +1,5 @@
+"use client"
 import { LogOut } from 'lucide-react'
-
 
 import {
     Dialog,
@@ -14,22 +14,22 @@ import {
 import { useAuthStore } from '@/stores/useAuthStore'
 
 function SignOutAccount() {
-    
 
-   const {logout}= useAuthStore()
+
+    const { logout } = useAuthStore()
 
     return (
         <Dialog>
             <DialogTrigger asChild>
                 <button
                     type="button"
-                    className="w-full flex items-center h-8 text-left border-t   gap-3 cursor-pointer hover:bg-red-50 hover:text-red-600 hover:border-red-200" >
-                    <LogOut className="w-4 h-4 text-red-600 ml-2" />
-                    <span className="text-red-600">{('signOutAccount')}</span>
+                    className="w-full flex items-center h-8 text-left border-t gap-3 cursor-pointer bg-background text-destructive hover:bg-destructive/10 hover:border-destructive" >
+                    <LogOut className="w-4 h-4 text-destructive ml-2" />
+                    <span>{('signOutAccount')}</span>
 
                 </button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-sm bg-white text-slate-900 shadow-xl ring-1 ring-slate-200">
+            <DialogContent className="sm:max-w-sm bg-background text-foreground shadow-xl ring-1 ring-border">
                 <DialogHeader>
                     <DialogTitle>{('logoutTitle')}</DialogTitle>
                     <DialogDescription>
@@ -40,7 +40,7 @@ function SignOutAccount() {
                     <DialogClose asChild>
                         <button
                             type="button"
-                            className="w-full rounded-3xl border border-black bg-white px-4 py-3 text-sm font-medium hover:bg-emerald-50 hover:text-emerald-600 hover:border-emerald-200"
+                            className="w-full rounded-3xl border border-border bg-background text-foreground px-4 py-3 text-sm font-medium hover:bg-accent hover:text-accent-foreground"
                         >
                             {('cancel')}
                         </button>
@@ -49,7 +49,7 @@ function SignOutAccount() {
                         <button
                             type="button"
                             onClick={logout}
-                            className="w-full rounded-3xl border border-black text-red-600 bg-white px-4 py-3 text-sm font-medium hover:bg-red-100 hover:text-red-900"
+                            className="w-full rounded-3xl border border-border text-destructive bg-background px-4 py-3 text-sm font-medium hover:bg-destructive/10 hover:text-destructive"
                         >
                             {('logout')}
                         </button>

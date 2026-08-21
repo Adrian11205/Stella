@@ -14,7 +14,7 @@ const changeTheme =()=>{
 
     return (
         <button onClick={changeTheme}
-        className=" size-10 flex justify-center items-center rounded-2xl p-1 border border-blue-500">
+        className=" size-10 flex justify-center items-center rounded-2xl p-1 border border-border">
 {
     isDark ? <Moon/> : <Sun/>
 }

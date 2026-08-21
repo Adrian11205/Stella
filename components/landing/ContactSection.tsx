@@ -38,14 +38,14 @@ export default function Page6() {
   ];
 
   return (
-    <section className="bg-white w-full md:w-full  py-2 ">
+    <section className="bg-background w-full md:w-full  py-2 ">
       <div className="flex items-center flex-col md:flex-row gap-5 md:gap-20 justify-between w-full p-10">
         <div className="flex-row justify-between items-center ">
-          <h2 className="text-2xl font-bold text-gray-900">
+          <h2 className="text-2xl font-bold text-foreground">
             {("page6-title")}
           </h2>
 
-          <p className="mt-2 text-gray-500">{("page6-description")}</p>
+          <p className="mt-2 text-muted-foreground">{("page6-description")}</p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:flex lg:gap-10">
@@ -57,14 +57,14 @@ export default function Page6() {
                 key={contact.id}
                 className="flex items-center gap-4 justify-center lg:justify-start"
               >
-                <div className="rounded-full bg-white p-3 shadow-sm">
-                  <Icon size={24} className="text-[#00B5B5]" />
+                <div className="rounded-full bg-background p-3 shadow-sm">
+                  <Icon size={24} className="text-brand" />
                 </div>
 
                 <div>
-                  <p className="text-sm text-gray-500">{contact.title}</p>
+                  <p className="text-sm text-chart-3">{contact.title}</p>
 
-                  <p className="font-semibold text-gray-900">{contact.value}</p>
+                  <p className="font-semibold text-foreground">{contact.value}</p>
                 </div>
               </div>
             );

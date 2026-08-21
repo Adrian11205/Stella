@@ -29,18 +29,18 @@ py-8
 "
           >
             <p
-              className="text-white font-bold leading-tight
+              className="text-background font-bold leading-tight
 
 text-2xl sm:text-3xl md:text-4xl lg:text-5xl"
             >
               Indulge in <br /> exclusive deals
             </p>
 
-            <p className="text-white mt-3 sm:mt-4 text-sm sm:text-base md:text-lg lg:text-xl max-w-md">
+            <p className="text-background mt-3 sm:mt-4 text-sm sm:text-base md:text-lg lg:text-xl max-w-md">
               Shop now and enjoy our latest fashion finds
             </p>
 
-            <button className="mt-6 sm:mt-8 bg-[#00B5B5] text-white px-6 py-3 rounded-lg w-fit text-sm sm:text-base md:text-lg hover:opacity-90 transition">
+            <button className="mt-6 sm:mt-8 bg-brand text-background px-6 py-3 rounded-lg w-fit text-sm sm:text-base md:text-lg hover:opacity-90 transition">
               Shop now
             </button>
           </div>
@@ -68,18 +68,18 @@ text-right
 "
           >
             <p
-              className="text-white font-bold leading-tight
+              className="text-background font-bold leading-tight
 
 text-xl sm:text-2xl md:text-3xl lg:text-4xl"
             >
               Welcome offer just <br /> for you
             </p>
 
-            <p className="text-white mt-3 sm:mt-4 text-sm sm:text-base md:text-lg lg:text-xl max-w-md">
+            <p className="text-background mt-3 sm:mt-4 text-sm sm:text-base md:text-lg lg:text-xl max-w-md">
               Enjoy a special discount on your first purchase
             </p>
 
-            <button className="mt-6 sm:mt-8 bg-blue-600 text-white px-6 py-3 rounded-lg w-fit text-sm sm:text-base md:text-lg hover:opacity-90 transition">
+            <button className="mt-6 sm:mt-8 bg-blues text-background px-6 py-3 rounded-lg w-fit text-sm sm:text-base md:text-lg hover:opacity-90 transition">
               Get discount
             </button>
           </div>

@@ -147,17 +147,17 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="w-[90vw] max-w-120 rounded-[22px] border border-gray-200 bg-white p-6 shadow-xl">
+      <DialogContent className="w-[90vw] max-w-120 rounded-[22px] border border-border bg-background p-6 shadow-xl">
         <div className="space-y-4 flex flex-col justify-center">
           <div className="flex flex-col gap-2">
             <span className="font-bold text-2xl">Email</span>
             <input
               type="email"
               onChange={(e) => changeEmail(e.target.value)}
-              className={`border-2 rounded-xl h-10 ${emailError ? "border-red-400" : "border-blue-400"
+              className={`border-2 rounded-xl h-10 ${emailError ? "border-destructive/70" : "border-blues/70"
                 }`}
             />
-            {emailError && <span className="text-red-500">{emailError}</span>}
+            {emailError && <span className="text-destructive">{emailError}</span>}
           </div>
 
           <div className="flex flex-col gap-2">
@@ -165,11 +165,11 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
             <input
               type="text"
               onChange={(e) => changeFirstName(e.target.value)}
-              className={`border-2 rounded-xl h-10 ${firstNameError ? "border-red-400" : "border-blue-400"
+              className={`border-2 rounded-xl h-10 ${firstNameError ? "border-destructive/70" : "border-blues/70"
                 }`}
             />
             {firstNameError && (
-              <span className="text-red-500">{firstNameError}</span>
+              <span className="text-destructive">{firstNameError}</span>
             )}
           </div>
 
@@ -178,11 +178,11 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
             <input
               type="text"
               onChange={(e) => changeLastName(e.target.value)}
-              className={`border-2 rounded-xl h-10 ${lastNameError ? "border-red-400" : "border-blue-400"
+              className={`border-2 rounded-xl h-10 ${lastNameError ? "border-destructive/70" : "border-blues/70"
                 }`}
             />
             {lastNameError && (
-              <span className="text-red-500">{lastNameError}</span>
+              <span className="text-destructive">{lastNameError}</span>
             )}
           </div>
 
@@ -192,14 +192,14 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
               <input
                 type={showPassword ? "text" : "password"}
                 onChange={(e) => changePassword(e.target.value)}
-                className={`w-full border-2 rounded-xl h-10 px-3 pr-10 ${passwordError ? "border-red-400" : "border-blue-400"
+                className={`w-full border-2 rounded-xl h-10 px-3 pr-10 ${passwordError ? "border-destructive/70" : "border-blues/70"
                   }`}
               />
 
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-900"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
               >
                 {showPassword ? (
                   <Eye className="h-5 w-5" />
@@ -210,7 +210,7 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
             </div>
 
             {passwordError && (
-              <span className="text-red-500">{passwordError}</span>
+              <span className="text-destructive">{passwordError}</span>
             )}
           </div>
 
@@ -219,11 +219,11 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
             <input
               type="text"
               onChange={(e) => changePhoneNumber(e.target.value)}
-              className={`border-2 rounded-xl h-10 ${phoneNumberError ? "border-red-400" : "border-blue-400"
+              className={`border-2 rounded-xl h-10 ${phoneNumberError ? "border-destructive/70" : "border-blues/70"
                 }`}
             />
             {phoneNumberError && (
-              <span className="text-red-500">{phoneNumberError}</span>
+              <span className="text-destructive">{phoneNumberError}</span>
             )}
           </div>
 
@@ -236,7 +236,7 @@ export default function RegisterDialog({ open, setOpen }: RegisterProps) {
               password.length === 0 ||
               phoneNumber.length === 0
             }
-            className="bg-blue-400 h-10 text-white mt-2 rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-blues/70 h-10 text-background mt-2 rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           >
             Register
           </button>

@@ -77,7 +77,7 @@ export default function RegisterLog({ open, setOpen }: RegisterLogProps) {
         <button
           type="button"
           onClick={() => setShowPassword((prev) => !prev)}
-          className="text-slate-500 hover:text-slate-900"
+          className="text-muted-foreground hover:text-foreground"
         >
           {showPassword ? (
             <Eye className="h-5 w-5" />
@@ -92,7 +92,7 @@ export default function RegisterLog({ open, setOpen }: RegisterLogProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="w-[90vw] max-w-120 rounded-[22px] border border-gray-200 bg-white p-6 shadow-xl" >
+      <DialogContent className="w-[90vw] max-w-120 rounded-[22px] border border-accent bg-background p-6 shadow-xl" >
         <div className="flex flex-col gap-4 ">
           {InputLogData.map((input) => (
             <div key={input.name} className="flex flex-col gap-2">
@@ -103,7 +103,7 @@ export default function RegisterLog({ open, setOpen }: RegisterLogProps) {
                   type={input.type}
                   value={input.value}
                   onChange={(e) => input.onChange(e.target.value)}
-                  className={`w-full border-2 rounded-xl h-10 px-3 pr-10 ${input.error ? "border-red-400" : "border-blue-400"
+                  className={`w-full border-2 rounded-xl h-10 px-3 pr-10 ${input.error ? "border-destructive/70" : "border-blues/70"
                     }`}
                 />
 
@@ -115,7 +115,7 @@ export default function RegisterLog({ open, setOpen }: RegisterLogProps) {
               </div>
 
               {input.error && (
-                <span className="text-red-500 text-sm">{input.error}</span>
+                <span className="text-destructive text-sm">{input.error}</span>
               )}
             </div>
           ))}
@@ -123,7 +123,7 @@ export default function RegisterLog({ open, setOpen }: RegisterLogProps) {
           <button
             onClick={()=>{ logInMutation.mutate(payload)}}
             disabled={email.length === 0 || password.length === 0}
-            className="bg-blue-400 h-10 text-white rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+            className="bg-blues/70 h-10 text-background rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           >
             Log in
           </button>
