@@ -71,8 +71,8 @@ function Header() {
         </div>
 
         <div className="bg-background text-foreground h-20 flex items-center justify-between px-6 shadow-sm">
-          <button
-            onClick={() => "/home"}
+          <Link
+          href={"/"}
             className="flex items-center whitespace-nowrap hover:opacity-80 transition cursor-pointer"
           >
             <Image
@@ -85,7 +85,7 @@ function Header() {
             <span className="text-3xl font-bold text-[#00B5B5] leading-none">
               Stella
             </span>
-          </button>
+          </Link>
 
           <div className="hidden sm:block relative w-1/2">
             <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">

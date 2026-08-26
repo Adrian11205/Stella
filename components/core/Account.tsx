@@ -52,9 +52,11 @@ function Account() {
 
         <DropdownMenuItem className="gap-3 border-b  cursor-pointer rounded-none hover:bg-accent hover:text-accent-foreground">
           <User className="w-4 h-4" />
-          <button onClick={() => "/profile"} className="cursor-pointer">
+          <Link
+            href={"/profile"}
+            className="cursor-pointer">
             {"profile"}
-          </button>
+          </Link>
         </DropdownMenuItem>
 
         <DropdownMenuItem className="gap-3 border-b  cursor-pointer rounded-none hover:bg-accent hover:text-accent-foreground">
