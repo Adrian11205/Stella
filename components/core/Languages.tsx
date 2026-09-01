@@ -1,3 +1,5 @@
+"use client";
+
 import {
     Select,
     SelectContent,
@@ -7,12 +9,33 @@ import {
 } from "../../components/ui/select";
 import ReactCountryFlag from "react-country-flag";
 
-
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 function Languages() {
-      
+
+    const router = useRouter();
+    const [locale, setLocale] = useState(() => {
+        if (typeof document === "undefined") {
+            return "en";
+        }
+
+        return document.cookie
+            .split("; ")
+            .find((cookie) => cookie.startsWith("locale="))
+            ?.split("=")[1] ?? "en";
+    });
+
+    function handleLocaleChange(nextLocale: string) {
+        document.cookie = `locale=${nextLocale}; path=/; max-age=31536000`;
+        setLocale(nextLocale);
+        router.refresh();
+    }
 
     return (
-        <Select>
+        <Select
+            value={locale}
+            onValueChange={handleLocaleChange}
+        >
             <SelectTrigger className="w-35">
                 <SelectValue />
             </SelectTrigger>

@@ -1,9 +1,11 @@
 import { Headphones, Phone, Mail } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 
 
 export default function Page6() {
- 
+  const t = useTranslations();
+
 
   const contactInfo = [
     {
@@ -11,7 +13,7 @@ export default function Page6() {
 
       icon: Headphones,
 
-      title: "Help Center",
+      title: t("helpCenter"),
 
       value: "help.stella.com",
     },
@@ -21,7 +23,7 @@ export default function Page6() {
 
       icon: Phone,
 
-      title: "Phone",
+      title: t("phoneLabel"),
 
       value: "+966577014820",
     },
@@ -31,7 +33,7 @@ export default function Page6() {
 
       icon: Mail,
 
-      title: "Email Support",
+      title: t("emailSupport"),
 
       value: "online@stella.com",
     },
@@ -42,10 +44,10 @@ export default function Page6() {
       <div className="flex items-center flex-col md:flex-row gap-5 md:gap-20 justify-between w-full p-10">
         <div className="flex-row justify-between items-center ">
           <h2 className="text-2xl font-bold text-foreground">
-            {("page6-title")}
+            {t("page6-title")}
           </h2>
 
-          <p className="mt-2 text-muted-foreground">{("page6-description")}</p>
+          <p className="mt-2 text-muted-foreground">{t("page6-description")}</p>
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:flex lg:gap-10">

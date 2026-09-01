@@ -1,8 +1,10 @@
 import { ArrowDown } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const SimpleIsMore = "/landing/SimpleIsMore.png";
 
 export default function IntroSection() {
+  const t = useTranslations();
   const handleNavigate = () => {
     const page3 = document.getElementById("contactPage");
 
@@ -19,17 +21,17 @@ export default function IntroSection() {
           className="relative w-full h-75 sm:h-112.5 md:h-150 lg:h-187.5 xl:h-225 2xl:h-250 bg-cover bg-center bg-no-repeat rounded-2xl sm:rounded-3xl md:rounded-[40px] overflow-hidden shadow-lg"
         >
           <p className="text-background leading-none font-light pt-3 pl-3 text-[55px] sm:text-[90px] md:text-[140px] lg:text-[180px] xl:text-[220px] 2xl:text-[240px]">
-            Simple
+            {t("simple")}
           </p>
 
           <p className="text-background leading-none font-light -mt-3 pl-8 sm:pl-16 md:pl-24 lg:pl-32 xl:pl-40 text-[55px] sm:text-[90px] md:text-[140px] lg:text-[180px] xl:text-[220px] 2xl:text-[240px]">
-            is more
+            {t("isMore")}
           </p>
 
           <p className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 lg:top-10 lg:right-10 text-background font-bold text-right text-xs sm:text-base md:text-xl lg:text-2xl xl:text-3xl">
-            DESIGNED TO
+            {t("designedTo")}
             <br />
-            STAND OUT
+            {t("standOut")}
           </p>
 
           <button
@@ -40,14 +42,14 @@ export default function IntroSection() {
           </button>
 
           <p className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 md:bottom-8 md:left-8 lg:bottom-10 lg:left-10 text-background font-bold text-xs sm:text-base md:text-xl lg:text-2xl xl:text-3xl">
-            LIMITED-EDITIONS
+            {t("limitedEditions")}
             <br />
-            STYLES
+            {t("styles")}
           </p>
         </div>
 
         <div className="flex justify-end mt-3 text-brand text-sm sm:text-base md:text-lg lg:text-xl font-medium hover:text-brand-hover transition-colors cursor-pointer">
-          See all
+          {t("seeAll")}
         </div>
       </div>
     </div>

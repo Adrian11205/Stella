@@ -9,8 +9,10 @@ import { Product, OrderEnum } from "@/api/types";
 import Link from "next/link"
 import useCartStore from "@/stores/useCartStore";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
 
 export default function ProductsList() {
+  const t = useTranslations();
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
@@ -39,7 +41,7 @@ export default function ProductsList() {
     mutationFn: deleteProduct,
 
     onSuccess: (id: string) => {
-      toast.success("Deleted succesfuly");
+      toast.success(t("productDeleted"));
       getAllProducts()
       const newProductsList = products.filter((product) => product.id !== id);
       setProducts(newProductsList);
@@ -65,16 +67,16 @@ export default function ProductsList() {
     <div className="text-xl font-bold mb-4 text-foreground">
       <div className="flex flex-row items-center justify-around  gap-76 pb-3 pr-5 pl-3">
         <div className="flex flex-row items-center gap-4">
-          <div className="font-medium ">Products ({products.length}) </div>
+          <div className="font-medium ">{t("products")} ({products.length}) </div>
 
           <div className="flex flex-row gap-2">
-            <button aria-label="Grid View" onClick={() => setViewMode("grid")}>
+            <button aria-label={t("gridView")} onClick={() => setViewMode("grid")}>
               <Grid
                 className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-110 ${viewMode === "grid" ? "text-brand" : "text-muted-foreground"
                   }`}
               />
             </button>
-            <button aria-label="Menu view" onClick={() => setViewMode("list")}>
+            <button aria-label={t("listView")} onClick={() => setViewMode("list")}>
               <Menu
                 className={`transition-all duration-500 ease-out hover:-translate-y-2 hover:scale-105 ${viewMode === "list" ? "text-brand" : "text-muted-foreground"
                   }`}
@@ -90,16 +92,16 @@ export default function ProductsList() {
             href={"/cart"}
           >
             <ShoppingCart className="w-8 h-8" />
-            Go to Cart
+            {t("goToCart")}
           </Link>
 
           <button
-            className="flex items-center justify-center gap-3 h-15 px-4 bg-primary text-primary-foreground
+            className="flex items-center justify-center gap-3 h-15 px-4 bg-blues text-primary-foreground
               rounded-lg hover:bg-primary/90 transition-colors duration-300 "
             onClick={() => setShowAddProduct(true)}
           >
             <CirclePlus size={30} />
-            Add Product
+            {t("addProduct")}
           </button>
 
           {showAddProduct && (
@@ -139,7 +141,7 @@ export default function ProductsList() {
     return (
       <div>
         {productsListHeader}
-        <span>Nu sunt produse in stoc</span>
+        <span>{t("noProducts")}</span>
       </div>
     );
   }

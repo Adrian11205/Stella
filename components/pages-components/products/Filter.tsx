@@ -6,6 +6,7 @@ import {
   SiNewbalance,
   SiUniqlo,
 } from "react-icons/si";
+import { useTranslations } from "next-intl";
 
 const brands = [
   { name: "Nike", icon: <SiNike /> },
@@ -18,17 +19,18 @@ const brands = [
 ];
 
 export default function Filter() {
+  const t = useTranslations();
   return (
     <div>
       <aside className="w-85 bg-card text-card-foreground rounded-xl border border-border p-5 shadow-lg gap-2">
         <div className="flex flex-col justify-between items-center mb-6 ">
-          <h1 className="text-2xl font-bold pb-3">Filter</h1>
+          <h1 className="text-2xl font-bold pb-3">{t("filter")}</h1>
 
           <div className="flex flex-col bg-muted w-full rounded-lg gap-2 pl-2 pt-3 pb-2 border-2 border-border">
-            <span className=" font-bold pl-3">Brand</span>
+            <span className=" font-bold pl-3">{t("brand")}</span>
             <input
               type="search"
-              placeholder="Search brand..."
+              placeholder={t("searchBrand")}
               className="border border-border bg-background text-foreground placeholder:text-muted-foreground w-60 h-8 rounded-lg flex items-center pl-6"
             />
 
@@ -49,31 +51,31 @@ export default function Filter() {
           </div>
 
           <div className="flex flex-col bg-muted w-full gap-2 pl-3 pt-3 border-2 border-border rounded-lg">
-            <span className="font-bold pl-2">Price</span>
+            <span className="font-bold pl-2">{t("price")}</span>
             <input
               type="range"
               className="w-60 "
               min="0"
               max="10000"
-              placeholder="price"
+              placeholder={t("price")}
             />
 
             <div className="flex flex-row gap-3 bg-muted w-full justify-center items-center pb-2 pr-2">
               <input
                 type="text"
-                placeholder="min $"
+                placeholder={t("minPrice")}
                 className="h-8 w-30 border border-border bg-background text-foreground placeholder:text-muted-foreground pl-3 cursor-pointer hover:bg-accent"
               />
               <input
                 type="text"
-                placeholder="max $"
+                placeholder={t("maxPrice")}
                 className="h-8 w-30 border border-border bg-background text-foreground placeholder:text-muted-foreground pl-3 cursor-pointer hover:bg-accent"
               />
             </div>
           </div>
 
           <div className="flex flex-col bg-muted w-full pt-3 gap-2 pl-2 border-2 border-border rounded-lg pb-2">
-            <span className="font-bold pl-4">Size</span>
+            <span className="font-bold pl-4">{t("size")}</span>
             <div className="flex flex-wrap gap-1 pl-3 ">
               <button className="h-8 w-12 border border-border bg-background rounded-lg cursor-pointer hover:bg-accent hover:text-accent-foreground">
                 {" "}
@@ -107,7 +109,7 @@ export default function Filter() {
           </div>
 
           <div className="flex flex-col bg-muted w-full pt-2 pl-2 pb-2 gap-2 rounded-lg">
-            <span className="font-bold pl-4">Color</span>
+            <span className="font-bold pl-4">{t("color")}</span>
             <div className="flex flex-row gap-1 pl-3 ">
               <div className="bg-filter-red rounded-full w-5 h-5 cursor-pointer hover:border-2 hover:border-foreground"></div>
               <div className="bg-filter-blue rounded-full w-5 h-5 cursor-pointer hover:border-2 hover:border-foreground">
@@ -124,7 +126,7 @@ export default function Filter() {
 
           <div className="flex justify-center items-center pt-5  ">
             <button className="w-60 h-10 bg-primary text-primary-foreground rounded-3xl font-bold cursor-pointer hover:bg-primary/90">
-              Show products
+              {t("showProducts")}
             </button>
           </div>
         </div>

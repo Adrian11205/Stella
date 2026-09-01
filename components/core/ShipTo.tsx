@@ -7,6 +7,7 @@ import {
 } from "../../components/ui/select";
 import { MapPin } from "lucide-react";
 import ReactCountryFlag from "react-country-flag";
+import { useTranslations } from "next-intl";
 
 
 const countries = [
@@ -20,6 +21,7 @@ const countries = [
 function ShipTo() {
     const [selected, setSelected] = useState("DE");
     const current = countries.find((c) => c.code === selected);
+    const t = useTranslations();
 
 
     return (
@@ -27,7 +29,7 @@ function ShipTo() {
             <MapPin size={16} className="text-background shrink-0" />
 
             <span className="text-sm text-background whitespace-nowrap">
-                {('shipTo')}
+                {t("shipTo")}
             </span>
 
             <Select value={selected} onValueChange={setSelected}>
@@ -53,7 +55,7 @@ function ShipTo() {
                                     countryCode={country.code}
                                     svg
                                     className="h-5 w-7 object-contain" />
-                                <span>{country.translationKey}</span>
+                                <span>{t(country.translationKey)}</span>
                             </span>
                         </SelectItem>
                     ))}

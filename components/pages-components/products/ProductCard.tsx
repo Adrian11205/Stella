@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import AddProducts from "./AddProducts";
 import useCartStore from "@/stores/useCartStore";
+import { useTranslations } from "next-intl";
 
 
 interface ProductCardProps {
@@ -19,6 +20,7 @@ export default function ProductCard({
   onDelete,
   getAllProducts,
 }: ProductCardProps) {
+  const t = useTranslations();
   const [showAddProduct, setShowAddProduct] = useState(false);
 
   const { decrementQuantity, incrementQuantity, setProduct, products } = useCartStore()
@@ -31,15 +33,15 @@ export default function ProductCard({
     quantity === 0 ? (
       <button
         onClick={() => setProduct({ product, quantity: 1 })}
-        className="flex items-center justify-center gap-1 bg-primary hover:bg-primary/90 text-primary-foreground rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
+        className="flex items-center justify-center gap-1 bg-blues hover:bg-primary/90 text-primary-foreground rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
       >
         <ShoppingCart size={14} />
-        <span>Add</span>
+        <span>{t("add")}</span>
       </button>
     ) : (
-      <div className="flex items-center justify-between bg-primary text-primary-foreground rounded-lg px-1 py-2 text-xs font-medium">
+      <div className="flex items-center justify-between bg-blues text-primary-foreground rounded-lg px-1 py-2 text-xs font-medium">
         <button
-          aria-label="Decrease quantity"
+          aria-label={t("decreaseQuantity")}
           onClick={() => decrementQuantity(product.id)}
           className="p-1 rounded hover:bg-primary/80 transition-colors cursor-pointer"
         >
@@ -49,7 +51,7 @@ export default function ProductCard({
         <span className="min-w-5 text-center">{quantity}</span>
 
         <button
-          aria-label="Increase quantity"
+          aria-label={t("increaseQuantity")}
           onClick={() => incrementQuantity(product.id)}
           className="p-1 rounded hover:bg-primary/80 transition-colors cursor-pointer"
         >
@@ -83,7 +85,7 @@ export default function ProductCard({
             {/* Categorie + Favorite */}
             <div className="flex flex-row justify-between items-center mt-2">
               <div className="text-muted-foreground text-xs">{product.category}</div>
-              <button aria-label="Add to favorites" onClick={() => { }}>
+              <button aria-label={t("addToFavorites")} onClick={() => { }}>
                 <Heart
                   size={18}
                   className="text-foreground hover:text-brand hover:scale-110 transition-all duration-500"
@@ -111,7 +113,7 @@ export default function ProductCard({
 
                 className="flex items-center justify-center gap-1 bg-secondary hover:bg-accent text-secondary-foreground hover:text-accent-foreground rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap">
                 <Pencil size={14} />
-                <span>Edit</span>
+                <span>{t("edit")}</span>
               </button>
 
               {cartControl}
@@ -121,7 +123,7 @@ export default function ProductCard({
                 className="flex items-center justify-center gap-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
               >
                 <Trash2 size={14} />
-                <span>Delete</span>
+                <span>{t("delete")}</span>
               </button>
             </div>
           </div>
@@ -151,7 +153,7 @@ export default function ProductCard({
 
             {/* Favorite */}
             <button
-              aria-label="Add to favorites"
+              aria-label={t("addToFavorites")}
               onClick={() => { }}
 
               className="shrink-0"
@@ -174,7 +176,7 @@ export default function ProductCard({
 
                 className="flex items-center gap-1 bg-secondary hover:bg-accent text-secondary-foreground hover:text-accent-foreground rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer">
                 <Pencil size={14} />
-                <span>Edit</span>
+                <span>{t("edit")}</span>
               </button>
 
               {cartControl}
@@ -185,7 +187,7 @@ export default function ProductCard({
               >
                 <Trash2 size={14} />
 
-                <span>Delete</span>
+                <span>{t("delete")}</span>
               </button>
             </div>
           </>

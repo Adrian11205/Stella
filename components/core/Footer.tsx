@@ -1,7 +1,9 @@
 import { FaInstagram, FaFacebook, FaTiktok } from "react-icons/fa6";
+import { useTranslations } from "next-intl";
 
 export default function Footer() {
-  const information = ["About", "Contacts", "Services"];
+  const t = useTranslations();
+  const information = [t("about"), t("contacts"), t("services")];
   const address = ["Mihai Viteazu 2/1", "Aleco Russo 21"];
 
   return (
@@ -35,7 +37,7 @@ export default function Footer() {
 
       <div className="flex flex-col items-center sm:items-start  order-2 sm:order-3">
         <span>
-          <b>Address :</b>
+          <b>{t("address")}:</b>
         </span>
         <ul>
           {address.map((item, i) => (

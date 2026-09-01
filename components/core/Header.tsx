@@ -22,10 +22,12 @@ import useFavoriteStore from "../../stores/useFavoriteStore";
 import SwitchTheme from "./SwitchTheme";
 import { useAuthStore } from "@/stores/useAuthStore";
 import Link from "next/link";
+import { useTranslations } from 'next-intl';
 
 function Header() {
   const [isRegister, setIsRegister] = useState(false);
   const [isLog, setIsLog] = useState(false);
+  const t = useTranslations();
 
   const { isAuth } = useAuthStore();
 
@@ -43,28 +45,28 @@ function Header() {
           <div className="hidden sm:flex gap-3 sm:gap-6 text-sm">
             <span className="flex items-center gap-1 cursor-pointer group relative">
               <Truck color="#5796a8" />
-              {"trustedShipping"}
+              {t("trustedShipping")}
               <div className="absolute top-6 left-0 bg-foreground text-background text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
-                <p className="font-semibold">{"freeShipping"}</p>
-                <p className="text-background">{"onAllOrders"}</p>
+                <p className="font-semibold">{t("freeShipping")}</p>
+                <p className="text-background">{t("onAllOrders")}</p>
               </div>
             </span>
 
             <span className="flex items-center gap-1 cursor-pointer group relative">
               <Undo2 color="#5796a8" />
-              {"easyReturns"}
+              {t("easyReturns")}
               <div className="absolute top-6 left-0 bg-foreground text-background text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
-                <p className="font-semibold">{"thirtyDayReturns"}</p>
-                <p className="text-background">{"noQuestionsAsked"}</p>
+                <p className="font-semibold">{t("thirtyDayReturns")}</p>
+                <p className="text-background">{t("noQuestionsAsked")}</p>
               </div>
             </span>
 
             <span className="flex items-center gap-1 cursor-pointer group relative">
               <ShieldCheck color="#5796a8" />
-              {"secureShopping"}
+              {t("secureShopping")}
               <div className="absolute top-6 left-0 bg-foreground text-background text-xs p-3 rounded-lg shadow-lg w-38 hidden group-hover:block z-50">
-                <p className="font-semibold">{"sslEncrypted"}</p>
-                <p className="text-background">{"yourDataIsSafe"}</p>
+                <p className="font-semibold">{t("sslEncrypted")}</p>
+                <p className="text-background">{t("yourDataIsSafe")}</p>
               </div>
             </span>
           </div>
@@ -72,7 +74,7 @@ function Header() {
 
         <div className="bg-background text-foreground h-20 flex items-center justify-between px-6 shadow-sm">
           <Link
-          href={"/"}
+            href={"/"}
             className="flex items-center whitespace-nowrap hover:opacity-80 transition cursor-pointer"
           >
             <Image
@@ -93,7 +95,7 @@ function Header() {
             </div>
             <input
               type="text"
-              placeholder={"search"}
+              placeholder={t("search")}
               className="w-full rounded-lg px-10 py-2 shadow-sm bg-muted text-foreground focus:outline-none focus:ring-2 focus:ring-ring"
             />
           </div>
@@ -138,14 +140,14 @@ function Header() {
                   onClick={() => setIsRegister(true)}
                   className="border-2 border-border bg-muted p-2 rounded-xl cursor-pointer "
                 >
-                  Register
+                  {t("register")}
                 </button>
 
                 <button
                   onClick={() => setIsLog(true)}
                   className="border-2 border-border bg-muted p-2 rounded-xl cursor-pointer "
                 >
-                  Log in
+                  {t("login")}
                 </button>
               </>
             )}
@@ -167,7 +169,7 @@ function Header() {
               </div>
               <input
                 type="text"
-                placeholder={"search"}
+                placeholder={t("search")}
                 className="w-full bg-transparent pl-7 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none"
               />
             </div>

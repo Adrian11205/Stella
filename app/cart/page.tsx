@@ -4,8 +4,10 @@ import AuthGuard from "@/components/layout/AuthGuard";
 import Image from "next/image";
 import Link from "next/link";
 import useCartStore from "@/stores/useCartStore";
+import { useTranslations } from "next-intl";
 
 function Cart() {
+  const t = useTranslations();
   const {
     products,
     clearCart,
@@ -24,7 +26,7 @@ function Cart() {
         <div className="flex flex-row items-center justify-between mb-6">
           <h1 className="text-2xl font-bold flex items-center gap-3">
             <ShoppingCart className="w-7 h-7" />
-            Cart ({products.length})
+            {t("cart")} ({products.length})
           </h1>
 
           {products.length > 0 && (
@@ -33,7 +35,7 @@ function Cart() {
               className="flex items-center gap-2 bg-destructive hover:bg-destructive text-background rounded-lg px-4 py-2 text-sm font-medium transition-colors cursor-pointer"
             >
               <Trash2 size={16} />
-              Clear cart
+              {t("clearCart")}
             </button>
           )}
         </div>
@@ -41,12 +43,12 @@ function Cart() {
         {products.length === 0 ? (
           <div className="flex flex-col items-center gap-4 py-20 text-muted-foreground">
             <ShoppingCart className="w-16 h-16" />
-            <span>Cosul este gol</span>
+            <span>{t("emptyCart")}</span>
             <Link
               href="/products"
               className="bg-blues hover:bg-primary/90 text-primary-foreground rounded-lg px-4 py-2 text-sm font-medium transition-colors"
             >
-              Mergi la produse
+              {t("goToProducts")}
             </Link>
           </div>
         ) : (
@@ -81,7 +83,7 @@ function Cart() {
 
                   <div className="flex items-center justify-between gap-1 bg-blues text-primary-foreground rounded-lg px-1 py-2 text-sm font-medium shrink-0">
                     <button
-                      aria-label="Decrease quantity"
+                      aria-label={t("decreaseQuantity")}
                       onClick={() => decrementQuantity(item.product.id)}
                       className="p-1 rounded hover:bg-primary/80 transition-colors cursor-pointer"
                     >
@@ -91,7 +93,7 @@ function Cart() {
                     <span className="min-w-6 text-center">{item.quantity}</span>
 
                     <button
-                      aria-label="Increase quantity"
+                      aria-label={t("increaseQuantity")}
                       onClick={() => incrementQuantity(item.product.id)}
                       className="p-1 rounded hover:bg-primary/80 transition-colors cursor-pointer"
                     >
@@ -104,7 +106,7 @@ function Cart() {
                   </div>
 
                   <button
-                    aria-label="Remove from cart"
+                    aria-label={t("removeFromCart")}
                     onClick={() => deleteProduct(item.product.id)}
                     className="flex items-center justify-center bg-destructive hover:bg-destructive/90 text-background rounded-lg p-2 transition-colors cursor-pointer shrink-0"
                   >
@@ -119,10 +121,10 @@ function Cart() {
                 href="/products"
                 className="text-primary hover:text-primary/80 hover:underline text-sm font-medium"
               >
-                Continua cumparaturile
+                {t("continueShopping")}
               </Link>
 
-              <div className="text-xl font-bold">Total: {totalPrice} lei</div>
+              <div className="text-xl font-bold">{t("total")}: {totalPrice} lei</div>
             </div>
           </>
         )}

@@ -7,12 +7,13 @@ import {
   Footprints,
   ShoppingBag,
 } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 const categories = [
   {
     id: 1,
 
-    name: "Personal Care",
+    name: "personalCare",
 
     icon: Pill,
   },
@@ -20,7 +21,7 @@ const categories = [
   {
     id: 2,
 
-    name: "Accessories",
+    name: "accessories",
 
     icon: Watch,
   },
@@ -28,7 +29,7 @@ const categories = [
   {
     id: 3,
 
-    name: "Coats",
+    name: "coats",
 
     icon: Shirt,
   },
@@ -36,7 +37,7 @@ const categories = [
   {
     id: 4,
 
-    name: "Sweat Pants",
+    name: "sweatPants",
 
     icon: Badge,
   },
@@ -44,7 +45,7 @@ const categories = [
   {
     id: 5,
 
-    name: "Parfume",
+    name: "perfume",
 
     icon: SprayCan,
   },
@@ -52,7 +53,7 @@ const categories = [
   {
     id: 6,
 
-    name: "T-Shirt",
+    name: "tShirt",
 
     icon: Shirt,
   },
@@ -60,7 +61,7 @@ const categories = [
   {
     id: 7,
 
-    name: "Sneakers",
+    name: "sneakers",
 
     icon: Footprints,
   },
@@ -68,23 +69,24 @@ const categories = [
   {
     id: 8,
 
-    name: "Bags",
+    name: "bags",
 
     icon: ShoppingBag,
   },
 ];
 
 export default function CategoriesSection() {
+  const t = useTranslations();
   return (
     <div className="w-full max-w-400 mx-auto px-4 sm:px-6 md:px-8 lg:px-10 py-6">
       <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-8">
         <div className="flex flex-col gap-3">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">
-            Shop by Category
+            {t("shopByCategory")}
           </h2>
 
           <div className="text-brand text-sm sm:text-base md:text-lg lg:text-xl font-medium hover:text-brand-hover transition-colors cursor-pointer">
-            See all
+            {t("seeAll")}
           </div>
         </div>
 
@@ -100,7 +102,7 @@ export default function CategoriesSection() {
                 <Icon className="text-brand w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7" />
 
                 <span className="text-sm sm:text-base md:text-lg font-medium">
-                  {category.name}
+                  {t(category.name)}
                 </span>
               </div>
             );

@@ -160,3 +160,7 @@
     @apply font-sans;
   }
 }
+
+.bg-blues {
+  background-color: #1e3a8a;
+}
