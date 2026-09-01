@@ -3,6 +3,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { getMyself, updateUserProfile } from "../../api/requests";
 import { useEffect, useState } from "react";
 import AuthGuard from "@/components/layout/AuthGuard";
+import { useQuery } from "@tanstack/react-query";
 
 
 function Profile() {
@@ -10,28 +11,44 @@ function Profile() {
     const [isEditing, setIsEditing] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
 
+    const [count, setCount] = useState(0)
+
+    const {data, error, isPending, isError} = useQuery({
+    queryKey: ["Myself"],
+    queryFn: getMyself,
+    retry: 3,
+    retryDelay:2000,
+    refetchOnWindowFocus: true,
+    refetchOnMount: true,
+    })
+
+
+
     const [form, setForm] = useState({
-        firstName: "",
-        lastName: "",
-        phoneNumber: ""
+        firstName: data?.firstName || "",
+        lastName: data?.lastName??"",
+        phoneNumber: data?.phoneNumber??""
     });
 
-    useEffect(() => {
-        function loadProfile() {
-            return getMyself().then((data) => {
-                setForm({
-                    firstName: data.firstName || "",
-                    lastName: data.lastName || "",
-                    phoneNumber: data.phoneNumber || ""
-                });
-            })
-                .catch((error) => {
-                    console.error("Failed to load profile", error);
-                });
-        }
+  
+    
 
-        loadProfile();
-    }, []);
+    // useEffect(() => {
+    //     function loadProfile() {
+    //         return getMyself().then((data) => {
+    //             setForm({
+    //                 firstName: data.firstName || "",
+    //                 lastName: data.lastName || "",
+    //                 phoneNumber: data.phoneNumber || ""
+    //             });
+    //         })
+    //             .catch((error) => {
+    //                 console.error("Failed to load profile", error);
+    //             });
+    //     }
+
+    //     loadProfile();
+    // }, []);
 
     const handleSave = async () => {
         console.log("handleSave isEditing", isEditing);
@@ -54,6 +71,11 @@ function Profile() {
 
     return (
         <AuthGuard>
+
+            <button onClick = {()=> setCount(count+1)}> add
+            
+            </button>
+
         <div className="flex items-start justify-center bg-gray-50 px-4 py-12.75">
             <div className="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg border border-gray-300">
 

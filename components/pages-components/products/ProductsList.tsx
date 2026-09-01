@@ -8,30 +8,31 @@ import { toast } from "sonner";
 import { Product, OrderEnum } from "@/api/types";
 import Link from "next/link"
 import useCartStore from "@/stores/useCartStore";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 export default function ProductsList() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [products, setProducts] = useState<Product[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState("");
 
-  const getAllProducts = () => {
-    getProducts({
+  const queryClient = useQueryClient()
+  // queryClient.
+
+  const {data: productsResponse, isPending, error} = useQuery({
+     queryKey: ["products"],
+     queryFn: ()=> {return getProducts({
       page: 1,
       take: 25,
-      order: OrderEnum.DESC,
-    })
-      .then((data) => {
-        setProducts(data.data);
-      })
-      .catch((err) => {
-        toast.error(err.response?.data?.message);
-        setError(err?.response?.data?.message);
-      })
-      .finally(() => setIsLoading(false));
-  };
+      order: OrderEnum.DESC
+    })},
+    staleTime: 1000*60*5,
+    gcTime: 
+
+  })
+
+  const meta = productsResponse?.meta
+  const products = productsResponse?.data || []
+
+ 
   const { deleteProduct: deleteProductFromCart } = useCartStore()
 
 const deleteMutation = useMutation({
@@ -46,15 +47,13 @@ const deleteMutation = useMutation({
       }
     })
 
-  useEffect(() => {
-    getAllProducts();
-  }, []);
+ 
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>{error.message}</div>;
   }
 
-  if (isLoading) {
+  if (isPending) {
     return (
       <div className="w-full h-100 flex items-center justify-center">
         <Loader className="size-12 animate-spin` " />
@@ -117,7 +116,13 @@ const deleteMutation = useMutation({
                 </button>
                 <AddProducts
                   refetchProducts={() => {
-                    getAllProducts();
+                    // getAllProducts();
+                    queryClient.invalidateQueries({
+                      queryKey:["products"],
+                    }) 
+                    queryClient.clear()
+                    // queryClient.getQueryData(["MySelf"])
+                    // queryClient.refetchQueries()
                     setShowAddProduct(false);
                   }}
                   editMode={false}
@@ -156,7 +161,7 @@ const deleteMutation = useMutation({
             product={product}
             onDelete={deleteMutation.mutate}
             getAllProducts={() => {
-              getAllProducts();
+              // getAllProducts();
             }}
           />
         ))}
