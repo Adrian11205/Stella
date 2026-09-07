@@ -1,11 +1,13 @@
 import { FaInstagram, FaFacebook, FaTiktok } from "react-icons/fa6";
+import { useTranslations } from "next-intl";
 
 export default function Footer() {
-  const information = ["About", "Contacts", "Services"];
+  const t = useTranslations();
+  const information = [t("about"), t("contacts"), t("services")];
   const address = ["Mihai Viteazu 2/1", "Aleco Russo 21"];
 
   return (
-    <div className="flex bg-black text-white  border-t-2 border-gray-100 w-full flex-col sm:flex-row items-center px-10 2xl:px-20 py-8 sm:py-3  justify-between gap-4 text-center sm:text-start ">
+    <div className="flex bg-foreground text-background  border-t-2 border-border w-full flex-col sm:flex-row items-center px-10 2xl:px-20 py-8 sm:py-3  justify-between gap-4 text-center sm:text-start ">
       <div className="flex flex-col order-1 sm:order-1">
         {information.map((item, i) => (
           <span key={i} className="hover:underline cursor-pointer font-bold">
@@ -35,7 +37,7 @@ export default function Footer() {
 
       <div className="flex flex-col items-center sm:items-start  order-2 sm:order-3">
         <span>
-          <b>Address :</b>
+          <b>{t("address")}:</b>
         </span>
         <ul>
           {address.map((item, i) => (

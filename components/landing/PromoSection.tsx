@@ -1,8 +1,10 @@
 const YourStyle = "/landing/YourStyle.png";
 const Discover = "/landing/Discover.png";
 const ExploreShoes = "/landing/ExploreShoes.png";
+import { useTranslations } from "next-intl";
 
 export default function Page3() {
+  const t = useTranslations();
   return (
     <div className="w-full flex justify-center px-4 py-10">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 max-w-6xl w-full">
@@ -10,17 +12,17 @@ export default function Page3() {
           className="relative lg:col-span-1 h-130 rounded-3xl overflow-hidden bg-cover bg-center"
           style={{ backgroundImage: `url(${YourStyle})` }}
         >
-          <div className="absolute inset-0 bg-black/10" />
+          <div className="absolute inset-0 bg-foreground/10" />
 
-          <div className="relative h-full flex flex-col justify-between p-6 text-white">
+          <div className="relative h-full flex flex-col justify-between p-6 text-background">
             <p className="font-bold text-lg">stella</p>
 
             <div>
               <h1 className="font-bold text-3xl leading-snug">
-                Your Style, <br />
-                Delivered. <br />
-                Exclusively <br />
-                Online.
+                {t("yourStyle")}<br />
+                {t("delivered")}<br />
+                {t("exclusively")}<br />
+                {t("online")}
               </h1>
             </div>
 
@@ -36,14 +38,14 @@ export default function Page3() {
             <div className="absolute inset-0" />
 
             <div className="relative h-full flex flex-col justify-center p-2 ">
-              <p className="text-gray-600 text-sm">Timeless elegance</p>
+              <p className="text-chart-3 text-sm">{t("timelessElegance")}</p>
 
-              <h2 className="text-2xl md:text-3xl font-semibold mt-2">
-                Discover our <br /> accessories collection
+              <h2 className="text-2xl md:text-3xl font-semibold mt-2 text-filter-black">
+                {t("discoverOur")}<br /> {t("accessoriesCollection")}
               </h2>
 
-              <button className="mt-4 w-fit px-5 py-2 rounded-lg bg-[#00B5B5] text-white">
-                Shop Now
+              <button className="mt-4 w-fit px-5 py-2 rounded-lg bg-brand text-background">
+                {t("shopNow")}
               </button>
             </div>
           </div>
@@ -55,14 +57,14 @@ export default function Page3() {
             <div className="absolute inset-0 " />
 
             <div className="relative h-full flex flex-col justify-center p-2 ">
-              <p className="text-gray-600 text-sm">Find your perfect pair</p>
+              <p className="text-chart-3 text-sm">{t("findPerfectPair")}</p>
 
-              <h2 className="text-2xl md:text-3xl font-semibold mt-2">
-                Explore our <br /> shoes collection
+              <h2 className="text-2xl md:text-3xl font-semibold mt-2 text-filter-black">
+                {t("exploreOur")}<br /> {t("shoesCollection")}
               </h2>
 
-              <button className="mt-4 w-fit px-5 py-2 rounded-lg bg-[#00B5B5] text-white">
-                Shop Now
+              <button className="mt-4 w-fit px-5 py-2 rounded-lg bg-brand text-background">
+                {t("shopNow")}
               </button>
             </div>
           </div>

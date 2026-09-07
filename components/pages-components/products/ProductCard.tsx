@@ -3,10 +3,11 @@ import { Product } from "@/api/types";
 import Image from "next/image";
 import { useState } from "react";
 import AddProducts from "./AddProducts";
-import useCartStore from "@/stores/useCartStore"; 
+import useCartStore from "@/stores/useCartStore";
+import { useTranslations } from "next-intl";
 
 
-interface  ProductCardProps {
+interface ProductCardProps {
   viewMode: "grid" | "list";
   product: Product;
   onDelete: (id: string) => void;
@@ -19,29 +20,30 @@ export default function ProductCard({
   onDelete,
   getAllProducts,
 }: ProductCardProps) {
+  const t = useTranslations();
   const [showAddProduct, setShowAddProduct] = useState(false);
 
-  const {decrementQuantity, incrementQuantity, setProduct, products} = useCartStore()
+  const { decrementQuantity, incrementQuantity, setProduct, products } = useCartStore()
 
   const quantity = products.find((item) => {
-      return item.product.id === product.id
+    return item.product.id === product.id
   })?.quantity || 0
 
-const cartControl =
+  const cartControl =
     quantity === 0 ? (
       <button
-        onClick={() => setProduct({product, quantity: 1 })}
-        className="flex items-center justify-center gap-1 bg-blue-900 hover:bg-blue-950 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
+        onClick={() => setProduct({ product, quantity: 1 })}
+        className="flex items-center justify-center gap-1 bg-blues hover:bg-primary/90 text-primary-foreground rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
       >
         <ShoppingCart size={14} />
-        <span>Add</span>
+        <span>{t("add")}</span>
       </button>
     ) : (
-      <div className="flex items-center justify-between bg-blue-900 text-white rounded-lg px-1 py-2 text-xs font-medium">
+      <div className="flex items-center justify-between bg-blues text-primary-foreground rounded-lg px-1 py-2 text-xs font-medium">
         <button
-          aria-label="Decrease quantity"
+          aria-label={t("decreaseQuantity")}
           onClick={() => decrementQuantity(product.id)}
-          className="p-1 rounded hover:bg-blue-800 transition-colors cursor-pointer"
+          className="p-1 rounded hover:bg-primary/80 transition-colors cursor-pointer"
         >
           <Minus size={14} />
         </button>
@@ -49,9 +51,9 @@ const cartControl =
         <span className="min-w-5 text-center">{quantity}</span>
 
         <button
-          aria-label="Increase quantity"
+          aria-label={t("increaseQuantity")}
           onClick={() => incrementQuantity(product.id)}
-          className="p-1 rounded hover:bg-blue-800 transition-colors cursor-pointer"
+          className="p-1 rounded hover:bg-primary/80 transition-colors cursor-pointer"
         >
           <Plus size={14} />
         </button>
@@ -63,14 +65,14 @@ const cartControl =
       <div
         className={
           viewMode === "grid"
-            ? "bg-gray-100 p-2 overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-all duration-500 ease-out rounded-2xl"
-            : "bg-gray-100 p-2 flex flex-row items-center gap-4 overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 ease-out rounded-2xl"
+            ? "bg-card text-card-foreground p-2 overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-105 transition-all duration-500 ease-out rounded-2xl"
+            : "bg-card text-card-foreground p-2 flex flex-row items-center gap-4 overflow-hidden shadow-lg hover:shadow-xl transition-all duration-500 ease-out rounded-2xl"
         }
       >
         {viewMode === "grid" ? (
           <div className="flex flex-col rounded-lg">
             {/* Imagine */}
-            <div className="relative h-48 bg-gray-200 overflow-hidden rounded-xl">
+            <div className="relative h-48 bg-muted overflow-hidden rounded-xl">
               <Image
                 src={`https://picsum.photos/seed/${product.id}/400/300`}
                 alt={product.name}
@@ -82,11 +84,11 @@ const cartControl =
 
             {/* Categorie + Favorite */}
             <div className="flex flex-row justify-between items-center mt-2">
-              <div className="text-gray-400 text-xs">{product.category}</div>
-              <button aria-label="Add to favorites" onClick={() => {}}>
+              <div className="text-muted-foreground text-xs">{product.category}</div>
+              <button aria-label={t("addToFavorites")} onClick={() => { }}>
                 <Heart
                   size={18}
-                  className="text-black hover:scale-110 transition-all duration-500"
+                  className="text-foreground hover:text-brand hover:scale-110 transition-all duration-500"
                 />
               </button>
             </div>
@@ -101,34 +103,34 @@ const cartControl =
 
             {/* Butoane */}
             <div
-             
+
               className="grid grid-cols-3 gap-1.5 mt-3"
             >
               <button
-               onClick={() => {
-                setShowAddProduct(true);
-              }}
-              
-              className="flex items-center justify-center gap-1 bg-green-800 hover:bg-green-900 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap">
+                onClick={() => {
+                  setShowAddProduct(true);
+                }}
+
+                className="flex items-center justify-center gap-1 bg-secondary hover:bg-accent text-secondary-foreground hover:text-accent-foreground rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap">
                 <Pencil size={14} />
-                <span>Edit</span>
+                <span>{t("edit")}</span>
               </button>
 
               {cartControl}
 
               <button
                 onClick={() => onDelete(product.id)}
-                className="flex items-center justify-center gap-1 bg-red-500 hover:bg-red-600 text-white rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
+                className="flex items-center justify-center gap-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-lg px-2 py-2 text-xs font-medium transition-colors cursor-pointer whitespace-nowrap"
               >
                 <Trash2 size={14} />
-                <span>Delete</span>
+                <span>{t("delete")}</span>
               </button>
             </div>
           </div>
         ) : (
           <>
             {/* Imagine */}
-            <div className="relative h-20 w-20 shrink-0 bg-gray-200 overflow-hidden rounded-xl">
+            <div className="relative h-20 w-20 shrink-0 bg-muted overflow-hidden rounded-xl">
               <Image
                 src={`https://picsum.photos/seed/${product.id}/200/200`}
                 alt={product.name}
@@ -140,7 +142,7 @@ const cartControl =
 
             {/* Nume + categorie */}
             <div className="flex-1 min-w-0">
-              <div className="text-gray-400 text-xs">{product.category}</div>
+              <div className="text-muted-foreground text-xs">{product.category}</div>
               <div className="font-bold truncate">{product.name}</div>
             </div>
 
@@ -151,41 +153,41 @@ const cartControl =
 
             {/* Favorite */}
             <button
-              aria-label="Add to favorites"
-              onClick={() => {}}
+              aria-label={t("addToFavorites")}
+              onClick={() => { }}
 
               className="shrink-0"
             >
               <Heart
                 size={18}
-                className="text-black hover:scale-110 transition-all duration-500"
+                className="text-foreground hover:text-brand hover:scale-110 transition-all duration-500"
               />
             </button>
 
             {/* Butoane */}
             <div
-              
+
               className="flex items-center gap-1.5 shrink-0"
             >
-              <button 
-              onClick={() => {
-                setShowAddProduct(true);
-              }}
-              
-              className="flex items-center gap-1 bg-green-800 hover:bg-green-900 text-white rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer">
+              <button
+                onClick={() => {
+                  setShowAddProduct(true);
+                }}
+
+                className="flex items-center gap-1 bg-secondary hover:bg-accent text-secondary-foreground hover:text-accent-foreground rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer">
                 <Pencil size={14} />
-                <span>Edit</span>
+                <span>{t("edit")}</span>
               </button>
 
               {cartControl}
 
               <button
                 onClick={() => onDelete(product.id)}
-                className="flex items-center gap-1 bg-red-500 hover:bg-red-600 text-white rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer"
+                className="flex items-center gap-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground rounded-lg px-3 py-2 text-xs font-medium transition-colors cursor-pointer"
               >
                 <Trash2 size={14} />
 
-                <span>Delete</span>
+                <span>{t("delete")}</span>
               </button>
             </div>
           </>
@@ -194,13 +196,13 @@ const cartControl =
 
       {showAddProduct && (
         <div
-          className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+          className="fixed inset-0 bg-foreground/50 flex items-center justify-center z-50"
           onClick={() => setShowAddProduct(false)}
         >
           <div onClick={(e) => e.stopPropagation()} className="relative">
             <button
               onClick={() => setShowAddProduct(false)}
-              className="absolute -top-3 -right-3 bg-white rounded-full p-1 shadow-md hover:bg-gray-100"
+              className="absolute -top-3 -right-3 bg-background text-foreground rounded-full p-1 shadow-md hover:bg-muted"
             >
               <X size={20} />
             </button>

@@ -5,6 +5,10 @@ import { toast } from "sonner";
 import { Eye, EyeOff } from "lucide-react";
 import { useAuthStore } from "@/stores/useAuthStore";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslations } from "next-intl";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 interface RegisterLogProps {
   open: boolean;
@@ -12,122 +16,97 @@ interface RegisterLogProps {
 }
 
 export default function RegisterLog({ open, setOpen }: RegisterLogProps) {
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const [emailError, setEmailError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-
+  const t = useTranslations();
   const [showPassword, setShowPassword] = useState(false);
+  const { login: loginStore } = useAuthStore();
 
-  function changeEmail(newEmail: string) {
-    setEmail(newEmail);
+  const schema = z.object({
+    email: z.string().email(t("emailInvalid")),
+    password: z.string().min(6, t("passwordMinLength")),
+  });
 
-    if (!newEmail.includes("@")) {
-      setEmailError("Email must include @");
-    } else if (!newEmail.includes(".")) {
-      setEmailError("Email must include .");
-    } else {
-      setEmailError("");
-    }
-  }
-
-  function changePassword(newPassword: string) {
-    setPassword(newPassword);
-
-    if (newPassword.length < 8) {
-      setPasswordError("Minimum 8 characters");
-    } else {
-      setPasswordError("");
-    }
-  }
-
-  const { login: loginStore } = useAuthStore()
-
-  const payload = { email, password };
+  type Form = z.infer<typeof schema>;
 
   const logInMutation = useMutation({
-    mutationFn:login,
-    
+    mutationFn: login,
     onSuccess: (data) => {
-      toast.success("Registred with success");
+      toast.success(t("loginSuccess"));
       setOpen();
-      loginStore(data.accessToken, data.refreshToken)
+      loginStore(data.accessToken, data.refreshToken);
     },
-    onError:(error)=>{
-        toast.error(error.message);
-    }
-  })
+    onError: (error) => {
+      toast.error(error?.message || "Eroare la autentificare");
+    },
+  });
 
-  const InputLogData = [
-    {
-      name: "Email",
-      type: "email",
-      value: email,
-      onChange: changeEmail,
-      error: emailError,
-    },
-    {
-      name: "Password",
-      type: showPassword ? "text" : "password",
-      value: password,
-      onChange: changePassword,
-      rightElement: (
-        <button
-          type="button"
-          onClick={() => setShowPassword((prev) => !prev)}
-          className="text-slate-500 hover:text-slate-900"
-        >
-          {showPassword ? (
-            <Eye className="h-5 w-5" />
-          ) : (
-            <EyeOff className="h-5 w-5" />
-          )}
-        </button>
-      ),
-      error: passwordError,
-    }
-  ];
+  const { register, handleSubmit, formState: { errors } } = useForm<Form>({
+    resolver: zodResolver(schema),
+  });
+
+  const onSubmit = (data: Form) => {
+    const payload = {
+      email: data.email,
+      password: data.password,
+    };
+
+    logInMutation.mutate(payload);
+  };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="w-[90vw] max-w-120 rounded-[22px] border border-gray-200 bg-white p-6 shadow-xl" >
-        <div className="flex flex-col gap-4 ">
-          {InputLogData.map((input) => (
-            <div key={input.name} className="flex flex-col gap-2">
-              <span className="font-bold text-2xl">{input.name}</span>
+      <DialogContent className="w-[90vw] max-w-120 rounded-[22px] border border-accent bg-background p-6 shadow-xl">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <span className="font-bold text-2xl">{t("email")}</span>
 
-              <div className="relative">
-                <input
-                  type={input.type}
-                  value={input.value}
-                  onChange={(e) => input.onChange(e.target.value)}
-                  className={`w-full border-2 rounded-xl h-10 px-3 pr-10 ${input.error ? "border-red-400" : "border-blue-400"
-                    }`}
-                />
+            <input
+              type="email"
+              {...register("email")}
+              className={`w-full border-2 rounded-xl h-10 px-3 pr-10 ${errors.email ? "border-destructive/70" : "border-blues/70"
+                }`}
+            />
 
-                {input.rightElement && (
-                  <div className="absolute inset-y-0 right-4 flex items-center">
-                    {input.rightElement}
-                  </div>
-                )}
-              </div>
+            {errors.email && (
+              <span className="text-destructive text-sm">
+                {errors.email.message}
+              </span>
+            )}
+          </div>
 
-              {input.error && (
-                <span className="text-red-500 text-sm">{input.error}</span>
-              )}
+          <div className="flex flex-col gap-2">
+            <span className="font-bold text-2xl">{t("password")}</span>
+
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                {...register("password")}
+                className={`w-full border-2 rounded-xl h-10 px-3 pr-10 ${errors.password ? "border-destructive/70" : "border-blues/70"
+                  }`}
+              />
+
+              <button
+                type="button"
+                onClick={() => setShowPassword((prev) => !prev)}
+                className="absolute inset-y-0 right-4 flex items-center text-muted-foreground hover:text-foreground"
+              >
+                {showPassword ? <Eye className="h-5 w-5" /> : <EyeOff className="h-5 w-5" />}
+              </button>
             </div>
-          ))}
+
+            {errors.password && (
+              <span className="text-destructive text-sm">
+                {errors.password.message}
+              </span>
+            )}
+          </div>
 
           <button
-            onClick={()=>{ logInMutation.mutate(payload)}}
-            disabled={email.length === 0 || password.length === 0}
-            className="bg-blue-400 h-10 text-white rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+            type="submit"
+            className="bg-blues/70 h-10 text-background rounded-2xl cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
           >
-            Log in
+            {t("login")}
           </button>
-        </div>
+        </form>
       </DialogContent>
     </Dialog>
   );
