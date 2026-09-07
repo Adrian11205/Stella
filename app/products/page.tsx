@@ -12,7 +12,6 @@ export default function Products() {
       <div className="flex flex-row gap-6 p-4 mt-10">
         <Filter />
         <div className="flex-1">
-          
           <ProductsList />
         </div>
       </div>
