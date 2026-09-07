@@ -97,7 +97,6 @@ function Account() {
             </DropdownMenuSubContent>
           </DropdownMenuPortal>
         </DropdownMenuSub>
-
         <SignOutAccount />
       </DropdownMenuContent>
     </DropdownMenu>
