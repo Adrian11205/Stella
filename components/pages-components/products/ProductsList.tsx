@@ -1,11 +1,11 @@
 "use client";
 import { Loader, Grid, Menu, ShoppingCart, CirclePlus, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import AddProducts from "./AddProducts";
 import ProductCard from "./ProductCard";
 import { getProducts, deleteProduct } from "@/api/requests";
 import { toast } from "sonner";
-import { Product, OrderEnum } from "@/api/types";
+import { OrderEnum } from "@/api/types";
 import Link from "next/link"
 import useCartStore from "@/stores/useCartStore";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
@@ -17,24 +17,24 @@ export default function ProductsList() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
 
   const queryClient = useQueryClient()
-  // queryClient.
 
-  const {data: productsResponse, isPending, error} = useQuery({
-     queryKey: ["products"],
-     queryFn: ()=> {return getProducts({
-      page: 1,
-      take: 25,
-      order: OrderEnum.DESC
-    })},
-    staleTime: 1000*60*5,
-    gcTime: 
+  const { data: productsResponse, isPending, error } = useQuery({
+    queryKey: ["products"],
+    queryFn: () => {
+      return getProducts({
+        page: 1,
+        take: 25,
+        order: OrderEnum.DESC
+      })
+    },
+    staleTime: 1000 * 60 * 5,
+    gcTime: 1000 * 60 * 20
 
   })
 
-  const meta = productsResponse?.meta
   const products = productsResponse?.data || []
 
- 
+
   const { deleteProduct: deleteProductFromCart } = useCartStore()
 
   const deleteMutation = useMutation({
@@ -42,14 +42,12 @@ export default function ProductsList() {
 
     onSuccess: (id: string) => {
       toast.success(t("productDeleted"));
-      getAllProducts()
-      const newProductsList = products.filter((product) => product.id !== id);
-      setProducts(newProductsList);
+      queryClient.invalidateQueries({ queryKey: ["products"] });
       deleteProductFromCart(id)
     }
   })
 
- 
+
 
   if (error) {
     return <div>{error.message}</div>;
@@ -118,13 +116,10 @@ export default function ProductsList() {
                 </button>
                 <AddProducts
                   refetchProducts={() => {
-                    // getAllProducts();
                     queryClient.invalidateQueries({
-                      queryKey:["products"],
-                    }) 
+                      queryKey: ["products"],
+                    })
                     queryClient.clear()
-                    // queryClient.getQueryData(["MySelf"])
-                    // queryClient.refetchQueries()
                     setShowAddProduct(false);
                   }}
                   editMode={false}
@@ -163,7 +158,7 @@ export default function ProductsList() {
             product={product}
             onDelete={deleteMutation.mutate}
             getAllProducts={() => {
-              // getAllProducts();
+              queryClient.invalidateQueries({ queryKey: ["products"] });
             }}
           />
         ))}
