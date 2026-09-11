@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import AddProducts from "./AddProducts";
 import useCartStore from "@/stores/useCartStore";
+import useFavoriteStore from "@/stores/useFavoriteStore";
 import { useTranslations } from "next-intl";
 
 
@@ -24,6 +25,8 @@ export default function ProductCard({
   const [showAddProduct, setShowAddProduct] = useState(false);
 
   const { decrementQuantity, incrementQuantity, setProduct, products } = useCartStore()
+  const { favorites, toggleFavorite } = useFavoriteStore();
+  const isFavorite = favorites.some((item) => item.id === product.id);
 
   const quantity = products.find((item) => {
     return item.product.id === product.id
@@ -85,10 +88,13 @@ export default function ProductCard({
             {/* Categorie + Favorite */}
             <div className="flex flex-row justify-between items-center mt-2">
               <div className="text-muted-foreground text-xs">{product.category}</div>
-              <button aria-label={t("addToFavorites")} onClick={() => { }}>
+              <button
+                aria-label={t("addToFavorites")}
+                onClick={() => toggleFavorite(product)}
+              >
                 <Heart
                   size={18}
-                  className="text-foreground hover:text-brand hover:scale-110 transition-all duration-500"
+                  className={`${isFavorite ? "fill-destructive text-destructive" : "text-foreground"} hover:text-destructive hover:scale-110 transition-all duration-500`}
                 />
               </button>
             </div>
@@ -154,13 +160,13 @@ export default function ProductCard({
             {/* Favorite */}
             <button
               aria-label={t("addToFavorites")}
-              onClick={() => { }}
+              onClick={() => toggleFavorite(product)}
 
               className="shrink-0"
             >
               <Heart
                 size={18}
-                className="text-foreground hover:text-brand hover:scale-110 transition-all duration-500"
+                className={`${isFavorite ? "fill-destructive text-destructive" : "text-foreground"} hover:text-destructive hover:scale-110 transition-all duration-500`}
               />
             </button>
 

@@ -1,15 +1,24 @@
-import {create} from "zustand";
+import { create } from "zustand";
+import { Product } from "@/api/types";
 
 interface FavoriteStore {
-    favoriteNumber: number;
-    setFavoriteNumber: () => void;
+  favorites: Product[];
+  toggleFavorite: (product: Product) => void;
 }
 
 const useFavoriteStore = create<FavoriteStore>((set) => ({
-    favoriteNumber: 0,
-    setFavoriteNumber: () => {
-        return set((state) => ({favoriteNumber: state.favoriteNumber + 1}));
-    }
+  favorites: [],
+  toggleFavorite: (product) => {
+    set((state) => {
+      const isFavorite = state.favorites.some((item) => item.id === product.id);
+
+      return {
+        favorites: isFavorite
+          ? state.favorites.filter((item) => item.id !== product.id)
+          : [...state.favorites, product],
+      };
+    });
+  },
 }));
 
 export default useFavoriteStore;

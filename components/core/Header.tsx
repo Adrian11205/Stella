@@ -32,7 +32,7 @@ function Header() {
   const { isAuth } = useAuthStore();
 
   const { products } = useCartStore();
-  const { favoriteNumber } = useFavoriteStore();
+  const { favorites } = useFavoriteStore();
   const totalProducts = products.reduce((total, product) => {
     return total += product.quantity
   }, 0)
@@ -126,9 +126,9 @@ function Header() {
                   className="relative flex items-center"
                 >
                   <Heart className="text-muted-foreground" />
-                  {favoriteNumber > 0 && (
+                  {favorites.length > 0 && (
                     <div className="absolute -top-2.5 -right-2.5 bg-destructive rounded-full size-5 text-background flex items-center justify-center">
-                      {favoriteNumber}
+                      {favorites.length}
                     </div>
                   )}
                 </button>
