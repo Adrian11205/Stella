@@ -25,8 +25,22 @@ export default function ProductCard({
   const [showAddProduct, setShowAddProduct] = useState(false);
 
   const { decrementQuantity, incrementQuantity, setProduct, products } = useCartStore()
-  const { favorites, toggleFavorite } = useFavoriteStore();
-  const isFavorite = favorites.some((item) => item.id === product.id);
+  const {
+    productsFavorite,
+    setProductFavorite,
+    deleteProductFavorite,
+  } = useFavoriteStore();
+  const isFavorite = productsFavorite.some(
+    (item) => item.productFavorite.id === product.id,
+  );
+  const toggleFavorite = () => {
+    if (isFavorite) {
+      deleteProductFavorite(product.id);
+      return;
+    }
+
+    setProductFavorite({ productFavorite: product, quantity: 1 });
+  };
 
   const quantity = products.find((item) => {
     return item.product.id === product.id
@@ -90,7 +104,7 @@ export default function ProductCard({
               <div className="text-muted-foreground text-xs">{product.category}</div>
               <button
                 aria-label={t("addToFavorites")}
-                onClick={() => toggleFavorite(product)}
+                onClick={toggleFavorite}
               >
                 <Heart
                   size={18}
@@ -160,7 +174,7 @@ export default function ProductCard({
             {/* Favorite */}
             <button
               aria-label={t("addToFavorites")}
-              onClick={() => toggleFavorite(product)}
+              onClick={toggleFavorite}
 
               className="shrink-0"
             >

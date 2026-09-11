@@ -173,5 +173,9 @@
   "contacts": "Contacte",
   "services": "Servicii",
   "address": "Adresă",
-  "removeFromCart": "Elimină din coș"
+  "removeFromCart": "Elimină din coș",
+  "favorites": "Favorite",
+  "emptyFavorites": "Lista de favorite este goală",
+  "addToCart": "Adaugă în coș",
+  "removeFromFavorites": "Elimină de la favorite"
 }

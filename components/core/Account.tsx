@@ -4,10 +4,6 @@ import {
   ChevronDown,
   Settings,
   User,
-  UserRoundPlus,
-  Mail,
-  MessageSquareText,
-  Ellipsis,
   ShoppingCart,
 } from "lucide-react";
 import { FaUserCircle } from "react-icons/fa";
@@ -18,11 +14,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSubTrigger,
-  DropdownMenuPortal,
-  DropdownMenuSubContent,
-  DropdownMenuSeparator,
-  DropdownMenuSub,
   DropdownMenuLabel,
 } from "./../../components/ui/dropdown-menu";
 import { useAuthStore } from "@/stores/useAuthStore";
@@ -69,34 +60,11 @@ function Account() {
           </Link>
         </DropdownMenuItem>
 
-        <DropdownMenuItem className="gap-3  cursor-pointer border-b rounded-none hover:bg-accent hover:text-accent-foreground">
+        <DropdownMenuItem className="gap-3  cursor-pointer  rounded-none hover:bg-accent hover:text-accent-foreground">
           <Settings className="w-4 h-4" />
           <span>{t("settings")}</span>
         </DropdownMenuItem>
 
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger className="gap-3  cursor-pointer  hover:bg-accent hover:text-accent-foreground">
-            <UserRoundPlus />
-            {t("inviteUsers")}
-          </DropdownMenuSubTrigger>
-          <DropdownMenuPortal>
-            <DropdownMenuSubContent>
-              <DropdownMenuItem className="hover:bg-accent cursor-pointer  hover:text-accent-foreground">
-                <Mail />
-                {t("email")}
-              </DropdownMenuItem>
-              <DropdownMenuItem className="hover:bg-accent cursor-pointer  hover:text-accent-foreground">
-                <MessageSquareText />
-                {t("message")}
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem className="gap-3 border-t rounded-none cursor-pointer  hover:bg-accent hover:text-accent-foreground">
-                <Ellipsis />
-                {t("more")}
-              </DropdownMenuItem>
-            </DropdownMenuSubContent>
-          </DropdownMenuPortal>
-        </DropdownMenuSub>
         <SignOutAccount />
       </DropdownMenuContent>
     </DropdownMenu>

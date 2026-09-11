@@ -1,24 +1,45 @@
-import { create } from "zustand";
 import { Product } from "@/api/types";
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
-interface FavoriteStore {
-  favorites: Product[];
-  toggleFavorite: (product: Product) => void;
+export interface CartProduct {
+  productFavorite: Product;
+  quantity: number;
 }
 
-const useFavoriteStore = create<FavoriteStore>((set) => ({
-  favorites: [],
-  toggleFavorite: (product) => {
-    set((state) => {
-      const isFavorite = state.favorites.some((item) => item.id === product.id);
+interface CartStore {
+  productsFavorite: CartProduct[];
+  setProductFavorite: (product: CartProduct) => void;
+  deleteProductFavorite: (productId: string) => void;
+}
 
-      return {
-        favorites: isFavorite
-          ? state.favorites.filter((item) => item.id !== product.id)
-          : [...state.favorites, product],
-      };
-    });
-  },
-}));
+const useFavoriteStore = create<CartStore>()(
+  persist(
+    (set, get) => ({
+      productsFavorite: [],
+
+      setProductFavorite: (product) => {
+        return set((state) => ({
+          productsFavorite: state.productsFavorite.some(
+            (item) => item.productFavorite.id === product.productFavorite.id,
+          )
+            ? state.productsFavorite
+            : [...state.productsFavorite, product],
+        }));
+      },
+
+      deleteProductFavorite: (productId) => {
+        const newProducts = get().productsFavorite.filter(
+          (item) => item.productFavorite.id !== productId,
+        );
+        return set({ productsFavorite: newProducts });
+      },
+    }),
+    {
+      name: "product-favorite",
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
+);
 
 export default useFavoriteStore;

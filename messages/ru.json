@@ -173,5 +173,9 @@
   "contacts": "Контакты",
   "services": "Услуги",
   "address": "Адрес",
-  "removeFromCart": "Удалить из корзины"
+  "removeFromCart": "Удалить из корзины",
+  "favorites": "Избранное",
+  "emptyFavorites": "Список избранного пуст",
+  "addToCart": "Добавить в корзину",
+  "removeFromFavorites": "Удалить из избранного"
 }

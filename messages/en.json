@@ -173,5 +173,9 @@
   "contacts": "Contacts",
   "services": "Services",
   "address": "Address",
-  "removeFromCart": "Remove from cart"
+  "removeFromCart": "Remove from cart",
+  "favorites": "Favorites",
+  "emptyFavorites": "Your favorites are empty",
+  "addToCart": "Add to cart",
+  "removeFromFavorites": "Remove from favorites"
 }
